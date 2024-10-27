@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using Game.Managers.Currencies;
-using GameTemplate.Events;
 using GameTemplate.Managers;
 using GameTemplate.UI.Currency;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 using VContainer;
 
 namespace GameTemplate.Gameplay.UI

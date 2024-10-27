@@ -13,8 +13,38 @@ MonoBehaviour:
   m_Name: PoolingManager
   m_EditorClassIdentifier: 
   poolObjects:
-  - objectPrefab: {fileID: 6451091213610394533, guid: 22fc2ccf138f40e4ab32731166fd9c2c,
+  - objectPrefab: {fileID: 5723697036167094182, guid: 90eef2986e5621946bc6c49fa7c1bb59,
       type: 3}
-    poolName: Cube
-    objectCount: 5
+    poolName: Chips
+    objectCount: 3
+    goBackOnDisable: 0
+  - objectPrefab: {fileID: 6905987088780623608, guid: 556e828522c2d664dacf6dde91f68efb,
+      type: 3}
+    poolName: Coffee
+    objectCount: 3
+    goBackOnDisable: 0
+  - objectPrefab: {fileID: 4351711296584093871, guid: b542f155b868c0e40834cb1333522ac2,
+      type: 3}
+    poolName: Drink01
+    objectCount: 3
+    goBackOnDisable: 0
+  - objectPrefab: {fileID: 1872261569430189388, guid: 51d6319d2b9742640a6b2bb01da1dc59,
+      type: 3}
+    poolName: Drink02
+    objectCount: 3
+    goBackOnDisable: 0
+  - objectPrefab: {fileID: 337297917773548205, guid: e3a10d9641710d041a51eb9a528a6e9a,
+      type: 3}
+    poolName: Drink03
+    objectCount: 3
+    goBackOnDisable: 0
+  - objectPrefab: {fileID: 5233414496755891495, guid: c2004775e0ce89f48af3e88e6f9555a4,
+      type: 3}
+    poolName: Drink04
+    objectCount: 3
+    goBackOnDisable: 0
+  - objectPrefab: {fileID: 4248656965856329395, guid: 6012fccf4ebae9e4cb47349aa82f193d,
+      type: 3}
+    poolName: Yogurt
+    objectCount: 3
     goBackOnDisable: 0

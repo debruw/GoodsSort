@@ -2,6 +2,8 @@ using GameTemplate.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VContainer;
+using VContainer.Unity;
 
 namespace GameTemplate.Managers.SceneManagers
 {
@@ -61,10 +63,6 @@ namespace GameTemplate.Managers.SceneManagers
             }
             else
             {
-                if (lastLoadedLevelPrefab != null)
-                {
-                    Destroy(lastLoadedLevelPrefab);
-                }
 
                 lastLoadedLevelPrefab = levelPrefabs[levelId % levelPrefabs.Length];
                 //instantiate scene prefab

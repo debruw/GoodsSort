@@ -13,8 +13,6 @@ namespace GameTemplate.Managers.Pool
 
         public PoolID PoolId { get => poolId; set => poolId = value; }
 
-        [Inject] private PoolingManager _PoolingManager;
-
         public void Initialize(bool gBackOnDisable, PoolID poolId)
         {
             this.goBackOnDisable = gBackOnDisable;
@@ -42,14 +40,14 @@ namespace GameTemplate.Managers.Pool
 
         public void GoBackToPool()
         {
-            _PoolingManager.GoBackToPool(this);
+            PoolingManager.Instance.GoBackToPool(this);
         }
 
         private void OnTransformParentChanged()
         {
-            if(transform.parent != _PoolingManager.poolParent)
+            if(transform.parent != PoolingManager.Instance.poolParent)
             {
-                _PoolingManager.PoolElementParentChanged(this);
+                PoolingManager.Instance.PoolElementParentChanged(this);
             }
         }
     }

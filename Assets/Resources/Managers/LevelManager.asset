@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61da346204e45d19d8d8d1473107f54, type: 3}
   m_Name: LevelManager
   m_EditorClassIdentifier: 
-  levelType: 1
-  levelPrefabs: []
+  levelType: 2
+  levelPrefabs:
+  - {fileID: 6038298831448436078, guid: 3110282f74df3c44faf3b2f20152bca4, type: 3}
   levelScenes:
   - sceneAsset: {fileID: 102900000, guid: a6b77adc76de7f14a94f2112bce0065f, type: 3}
-    scenePath: Assets/Scenes/SampleLevelScene.unity
+    scenePath: Assets/Scenes/Levels/SampleLevelScene.unity
   loopStartIndex: 0

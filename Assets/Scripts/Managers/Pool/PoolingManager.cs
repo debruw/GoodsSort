@@ -13,6 +13,19 @@ namespace GameTemplate.Managers.Pool
 
         [SerializeField] private List<PoolElement> parentsChangedPoolObjects = new List<PoolElement>();
         private Dictionary<PoolID, Queue<GameObject>> objectPools = new Dictionary<PoolID, Queue<GameObject>>();
+        
+        public static PoolingManager Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance != null)
+            {
+                throw new System.Exception("Multiple Sound Players!");
+            }
+
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
+        }
 
         public void Initialize()
         {

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.Serialization;
 using GameTemplate.Audio;
 using GameTemplate.Managers.Pool;
 using GameTemplate.Managers.SceneManagers;
@@ -13,7 +14,6 @@ namespace GameTemplate.Gameplay.GameState
         public override GameState ActiveState => GameState.Game;
         
         [SerializeField] private LevelManager _levelManager;
-        [SerializeField] private PoolingManager _poolingManager;
         [SerializeField] private Transform _levelPrefabParent;
         [SerializeField] private UIGameCanvas _uiGameCanvas;
 
@@ -23,14 +23,13 @@ namespace GameTemplate.Gameplay.GameState
 
         [Inject] PersistentGameState m_PersistentGameState;
 
-        protected override void Awake()
+        protected override void Start()
         {
-            base.Awake();
+            base.Start();
 
             m_PersistentGameState.Reset();
             //Do some things here
             _levelManager.Initialize(_levelPrefabParent);
-            _poolingManager.Initialize();
         }
 
         protected override void Configure(IContainerBuilder builder)
@@ -38,13 +37,11 @@ namespace GameTemplate.Gameplay.GameState
             base.Configure(builder);
             
             builder.RegisterInstance(_levelManager);
-            builder.RegisterInstance(_poolingManager);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            _poolingManager.ResetPool();
         }
 
         public void GameFinished(bool isWin)
@@ -68,6 +65,7 @@ namespace GameTemplate.Gameplay.GameState
             if (m_PersistentGameState.WinState == WinState.Win)
             {
                 SoundPlayer.Instance.PlayWinSound();
+                _levelManager.SetNextLevel();
             }
             else
             {

@@ -1,6 +1,5 @@
 using DG.Tweening;
 using GameTemplate.Gameplay.GameState;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace GameTemplate.UI
