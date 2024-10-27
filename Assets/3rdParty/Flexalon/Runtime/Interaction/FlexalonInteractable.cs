@@ -1,61 +1,54 @@
 using System;
 using System.Collections.Generic;
-using GameTemplate._Game.Scripts.Match;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Flexalon
 {
     /// <summary> Allows a gameObject to be clicked and dragged. </summary>
-    [AddComponentMenu("Flexalon/Flexalon Interactable"), HelpURL("https://www.flexalon.com/docs/interactable"),
-     DisallowMultipleComponent]
+    [AddComponentMenu("Flexalon/Flexalon Interactable"), HelpURL("https://www.flexalon.com/docs/interactable"), DisallowMultipleComponent]
     public class FlexalonInteractable : MonoBehaviour
     {
-        [SerializeField] private bool _clickable = false;
-
+        [SerializeField]
+        private bool _clickable = false;
         /// <summary> Determines if this object can be clicked and generate click events. </summary>
-        public bool Clickable
-        {
+        public bool Clickable {
             get => _clickable;
             set => _clickable = value;
         }
 
-        [SerializeField] private float _maxClickTime = 0.1f;
-
+        [SerializeField]
+        private float _maxClickTime = 0.1f;
         /// <summary>
         /// With a mouse or touch input, a click is defined as a press and release.
         /// The time between press and release must be less than Max Click Time to
         /// count as a click. A drag interaction cannot start until Max Click Time is exceeded.
         /// </summary>
-        public float MaxClickTime
-        {
+        public float MaxClickTime {
             get => _maxClickTime;
             set => _maxClickTime = value;
         }
 
-        [SerializeField] private bool _draggable = false;
-
+        [SerializeField]
+        private bool _draggable = false;
         /// <summary> Determines if this object can be dragged and generate drag events. </summary>
-        public bool Draggable
-        {
+        public bool Draggable {
             get => _draggable;
             set => _draggable = value;
         }
 
-        [SerializeField] private float _interpolationSpeed = 10;
-
+        [SerializeField]
+        private float _interpolationSpeed = 10;
         /// <summary> How quickly the object moves towards the cursor when dragged. </summary>
-        public float InterpolationSpeed
-        {
+        public float InterpolationSpeed {
             get => _interpolationSpeed;
             set => _interpolationSpeed = value;
         }
 
-        [SerializeField] private float _insertRadius = 0.5f;
-
+        [SerializeField]
+        private float _insertRadius = 0.5f;
         /// <summary> How close this object needs to a drag target's bounds to be inserted. </summary>
-        public float InsertRadius
-        {
+        public float InsertRadius {
             get => _insertRadius;
             set => _insertRadius = value;
         }
@@ -75,22 +68,20 @@ namespace Flexalon
             Line
         }
 
-        [SerializeField] private RestrictionType _restriction = RestrictionType.None;
-
+        [SerializeField]
+        private RestrictionType _restriction = RestrictionType.None;
         /// <summary> Determines how to restrict the object's drag movement. </summary>
-        public RestrictionType Restriction
-        {
+        public RestrictionType Restriction {
             get => _restriction;
             set => _restriction = value;
         }
 
-        [SerializeField] private Vector3 _planeNormal = Vector3.up;
-
+        [SerializeField]
+        private Vector3 _planeNormal = Vector3.up;
         /// <summary> Defines the normal of the plane when using a plane restriction.
         /// If 'Local Space' is checked, this normal is rotated by the transform
         /// of the layout that the object started in. </summary>
-        public Vector3 PlaneNormal
-        {
+        public Vector3 PlaneNormal {
             get => _planeNormal;
             set
             {
@@ -99,13 +90,12 @@ namespace Flexalon
             }
         }
 
-        [SerializeField] private Vector3 _lineDirection = Vector3.right;
-
+        [SerializeField]
+        private Vector3 _lineDirection = Vector3.right;
         /// <summary> Defines the direction of the line when using a line restriction.
         /// If 'Local Space'is checked, this direction is rotated by the transform
         /// of the layout that the object started in. </summary>
-        public Vector3 LineDirection
-        {
+        public Vector3 LineDirection {
             get => _lineDirection;
             set
             {
@@ -114,53 +104,48 @@ namespace Flexalon
             }
         }
 
-        [SerializeField] private bool _localSpaceRestriction = true;
-
+        [SerializeField]
+        private bool _localSpaceRestriction = true;
         /// <summary> When checked, the Plane Normal and Line Direction are applied in local space. </summary>
-        public bool LocalSpaceRestriction
-        {
+        public bool LocalSpaceRestriction {
             get => _localSpaceRestriction;
             set => _localSpaceRestriction = value;
         }
 
-        [SerializeField] private Vector3 _holdOffset;
-
+        [SerializeField]
+        private Vector3 _holdOffset;
         // <summary> When dragged, this option adds an offset to the dragged object's position.
         // This can be used to float the object near the layout while it is being dragged.
         // If 'Local Space' is checked, this offset is rotated and scaled by the transform
         // of the layout that the object started in. </summary>
-        public Vector3 HoldOffset
-        {
+        public Vector3 HoldOffset {
             get => _holdOffset;
             set => _holdOffset = value;
         }
 
-        [SerializeField] private bool _localSpaceOffset = true;
-
+        [SerializeField]
+        private bool _localSpaceOffset = true;
         /// <summary> When checked, the Hold Offset is applied in local space. </summary>
-        public bool LocalSpaceOffset
-        {
+        public bool LocalSpaceOffset {
             get => _localSpaceOffset;
             set => _localSpaceOffset = value;
         }
 
-        [SerializeField] private bool _rotateOnDrag = false;
-
+        [SerializeField]
+        private bool _rotateOnDrag = false;
         // <summary> When dragged, this option adds a rotation to the dragged object.
         // This can be used to tilt the object while it is being dragged.
         // If 'Local Space' is checked, this rotation will be in the local
         // space of the layout that the object started in. </summary>
-        public bool RotateOnDrag
-        {
+        public bool RotateOnDrag {
             get => _rotateOnDrag;
             set => _rotateOnDrag = value;
         }
 
-        [SerializeField] private Quaternion _holdRotation;
-
+        [SerializeField]
+        private Quaternion _holdRotation;
         /// <summary> The rotation to apply to the object when it is being dragged. </summary>
-        public Quaternion HoldRotation
-        {
+        public Quaternion HoldRotation {
             get => _holdRotation;
             set
             {
@@ -169,29 +154,26 @@ namespace Flexalon
             }
         }
 
-        [SerializeField] private bool _localSpaceRotation = true;
-
+        [SerializeField]
+        private bool _localSpaceRotation = true;
         /// <summary> When checked, the Hold Rotation is applied in local space. </summary>
-        public bool LocalSpaceRotation
-        {
+        public bool LocalSpaceRotation {
             get => _localSpaceRotation;
             set => _localSpaceRotation = value;
         }
 
-        [SerializeField] private bool _hideCursor = false;
-
+        [SerializeField]
+        private bool _hideCursor = false;
         /// <summary> When checked, Cursor.visible is set to false when the object is dragged. </summary>
-        public bool HideCursor
-        {
+        public bool HideCursor {
             get => _hideCursor;
             set => _hideCursor = value;
         }
 
-        [SerializeField] private GameObject _handle = null;
-
+        [SerializeField]
+        private GameObject _handle = null;
         /// <summary> GameObject to use to select and drag this object. If not set, uses self. </summary>
-        public GameObject Handle
-        {
+        public GameObject Handle {
             get => _handle;
             set
             {
@@ -207,77 +189,73 @@ namespace Flexalon
 
         void OnValidate()
         {
-#pragma warning disable 618
+            #pragma warning disable 618
             if (_collider && !_handle)
             {
                 _handle = _collider.gameObject;
                 _collider = null;
             }
-#pragma warning restore 618
+            #pragma warning restore 618
         }
 
-        [SerializeField] private Collider _bounds;
+        [SerializeField]
+        private Collider _bounds;
         /// <summary> If set, the object cannot be dragged outside of the bounds collider. </summary>
-        public Collider Bounds
-        {
+        public Collider Bounds {
             get => _bounds;
             set => _bounds = value;
         }
 #endif
 
-        [SerializeField] private LayerMask _layerMask = -1;
-
+        [SerializeField]
+        private LayerMask _layerMask = -1;
         /// <summary> When dragged, limits which Flexalon Drag Targets will accept this object
         /// by comparing the Layer Mask to the target GameObject's layer. </summary>
-        public LayerMask LayerMask
-        {
+        public LayerMask LayerMask {
             get => _layerMask;
             set => _layerMask = value;
         }
 
         /// <summary> An event that occurs to a FlexalonInteractable. </summary>
         [System.Serializable]
-        public class InteractableEvent : UnityEvent<FlexalonInteractable>
-        {
-        }
+        public class InteractableEvent : UnityEvent<FlexalonInteractable>{}
 
-        [SerializeField] private InteractableEvent _clicked;
-
+        [SerializeField]
+        private InteractableEvent _clicked;
         /// <summary> Unity Event invoked when the object is pressed and released within MaxClickTime. </summary>
         public InteractableEvent Clicked => _clicked;
 
-        [SerializeField] private InteractableEvent _hoverStart;
-
+        [SerializeField]
+        private InteractableEvent _hoverStart;
         /// <summary> Unity Event invoked when the object starts being hovered. </summary>
         public InteractableEvent HoverStart => _hoverStart;
 
-        [SerializeField] private InteractableEvent _hoverEnd;
-
+        [SerializeField]
+        private InteractableEvent _hoverEnd;
         /// <summary> Unity Event invoked when the object stops being hovered. </summary>
         public InteractableEvent HoverEnd => _hoverEnd;
 
-        [SerializeField] private InteractableEvent _selectStart;
-
+        [SerializeField]
+        private InteractableEvent _selectStart;
         /// <summary> Unity Event invoked when the object starts being selected (e.g. press down mouse over object). </summary>
         public InteractableEvent SelectStart => _selectStart;
 
-        [SerializeField] private InteractableEvent _selectEnd;
-
+        [SerializeField]
+        private InteractableEvent _selectEnd;
         /// <summary> Unity Event invoked when the object stops being selected (e.g. release mouse). </summary>
         public InteractableEvent SelectEnd => _selectEnd;
 
-        [SerializeField] private InteractableEvent _dragStart;
-
+        [SerializeField]
+        private InteractableEvent _dragStart;
         /// <summary> Unity Event invoked when the object starts being dragged. </summary>
         public InteractableEvent DragStart => _dragStart;
 
-        [SerializeField] private InteractableEvent _dragEnd;
-
+        [SerializeField]
+        private InteractableEvent _dragEnd;
         /// <summary> Unity Event invoked when the object stops being dragged. </summary>
         public InteractableEvent DragEnd => _dragEnd;
 
         private static List<FlexalonInteractable> _hoveredObjects = new List<FlexalonInteractable>();
-
         /// <summary> The currently hovered objects. </summary>
         public static List<FlexalonInteractable> HoveredObjects => _hoveredObjects;
 
@@ -285,7 +263,6 @@ namespace Flexalon
         public static FlexalonInteractable HoveredObject => _hoveredObjects.Count > 0 ? _hoveredObjects[0] : null;
 
         private static List<FlexalonInteractable> _selectedObjects = new List<FlexalonInteractable>();
-
         /// <summary> The currently selected / dragged objects. </summary>
         public static List<FlexalonInteractable> SelectedObjects => _selectedObjects;
 
@@ -333,7 +310,6 @@ namespace Flexalon
         }
 
         private InteractableState _state = InteractableState.Init;
-
         /// <summary> The current state of the interactable. </summary>
         public InteractableState State => _state;
 
@@ -445,21 +421,19 @@ namespace Flexalon
             {
                 return;
             }
-
-            var currentDragTarget = _placeholder.transform.parent
-                ? _placeholder.transform.parent.GetComponent<FlexalonDragTarget>()
-                : null;
+/*
+            var currentDragTarget = _placeholder.transform.parent ? _placeholder.transform.parent.GetComponent<FlexalonDragTarget>() : null;
 
             // Find a drag target to insert into.
             if (TryFindNearestDragTarget(currentDragTarget, out var newDragTarget, out var nearestChild))
             {
-                //AddToLayout(currentDragTarget, newDragTarget, nearestChild);
+                AddToLayout(currentDragTarget, newDragTarget, nearestChild);
             }
             else
             {
                 MovePlaceholder(null);
             }
-
+*/
             _lastTarget = _target;
         }
 
@@ -482,6 +456,7 @@ namespace Flexalon
                 }
             }
 #endif
+
         }
 
         private InputProvider GetInputProvider()
@@ -545,6 +520,7 @@ namespace Flexalon
                         OnSelectEnd();
                         OnHoverEnd();
                     }
+
                 }
                 else if (_draggable && (!_clickable || (Time.time - _selectTime > _maxClickTime)))
                 {
@@ -691,12 +667,9 @@ namespace Flexalon
             }
 
             DragEnd.Invoke(this);
-
-            GetComponent<QueueObject>().TryToDropNewPlace();
         }
-
-        private static bool ClosestPointOnTwoLines(Vector3 p0, Vector3 v0, Vector3 p1, Vector3 v1,
-            out Vector3 closestPointLine2)
+        
+        private static bool ClosestPointOnTwoLines(Vector3 p0, Vector3 v0, Vector3 p1, Vector3 v1, out Vector3 closestPointLine2)
         {
             closestPointLine2 = Vector3.zero;
 
@@ -784,8 +757,7 @@ namespace Flexalon
             }
 
             // Interpolate object towards target.
-            transform.position =
-                Vector3.Lerp(transform.position, _target + offset, Time.deltaTime * _interpolationSpeed);
+            transform.position = Vector3.Lerp(transform.position, _target + offset, Time.deltaTime * _interpolationSpeed);
 
             // Apply hold rotation
             if (_rotateOnDrag)
@@ -800,22 +772,18 @@ namespace Flexalon
                     rotation = _holdRotation;
                 }
 
-                transform.rotation =
-                    Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * _interpolationSpeed);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * _interpolationSpeed);
             }
         }
 
-        private bool TryFindNearestChild(FlexalonDragTarget dragTarget, out Transform nearestChild,
-            out float distanceSquared)
+        private bool TryFindNearestChild(FlexalonDragTarget dragTarget, out Transform nearestChild, out float distanceSquared)
         {
             var moveDirection = (_target - _lastTarget).normalized;
             nearestChild = null;
             distanceSquared = float.MaxValue;
             foreach (Transform child in dragTarget.transform)
             {
-                var childPos =
-                    dragTarget.transform.localToWorldMatrix.MultiplyPoint(child.GetComponent<FlexalonResult>()
-                        .TargetPosition);
+                var childPos = dragTarget.transform.localToWorldMatrix.MultiplyPoint(child.GetComponent<FlexalonResult>().TargetPosition);
                 var toChild = (childPos - _lastTarget).normalized;
                 if (child == _placeholder.transform || Vector3.Dot(toChild, moveDirection) > 0)
                 {
@@ -832,8 +800,7 @@ namespace Flexalon
         }
 
         // Find a drag target to insert into by checking if it contains the target point.
-        private bool TryFindNearestDragTarget(FlexalonDragTarget currentDragTarget, out FlexalonDragTarget dragTarget,
-            out Transform nearestChild)
+        private bool TryFindNearestDragTarget(FlexalonDragTarget currentDragTarget, out FlexalonDragTarget dragTarget, out Transform nearestChild)
         {
             if (!CanLeave(currentDragTarget))
             {
@@ -849,8 +816,7 @@ namespace Flexalon
 
             foreach (var candidate in FlexalonDragTarget.DragTargets)
             {
-                if (CanAdd(currentDragTarget, candidate) &&
-                    candidate.OverlapsSphere(worldInsertPosition, worldInsertRadius))
+                if (CanAdd(currentDragTarget, candidate) && candidate.OverlapsSphere(worldInsertPosition, worldInsertRadius))
                 {
                     if (TryFindNearestChild(candidate, out var candidateNearestChild, out var distanceSquared))
                     {
@@ -867,6 +833,7 @@ namespace Flexalon
                         break;
                     }
                 }
+
             }
 
             return dragTarget != null;
@@ -890,8 +857,7 @@ namespace Flexalon
         }
 
         // Finds an appropriate place to add the placeholder into the drag target.
-        private void AddToLayout(FlexalonDragTarget currentDragTarget, FlexalonDragTarget newDragTarget,
-            Transform nearestChild)
+        private void AddToLayout(FlexalonDragTarget currentDragTarget, FlexalonDragTarget newDragTarget, Transform nearestChild)
         {
             var insertIndex = nearestChild ? nearestChild.GetSiblingIndex() : 0;
 
@@ -908,7 +874,7 @@ namespace Flexalon
         private bool CanLeave(FlexalonDragTarget dragTarget)
         {
             return dragTarget == null ||
-                   (dragTarget.CanRemoveObjects && dragTarget.transform.childCount > dragTarget.MinObjects);
+                (dragTarget.CanRemoveObjects && dragTarget.transform.childCount > dragTarget.MinObjects);
         }
 
         private bool CanAdd(FlexalonDragTarget currentDragTarget, FlexalonDragTarget dragTarget)
@@ -919,14 +885,13 @@ namespace Flexalon
             }
 
             return dragTarget != null &&
-                   dragTarget.gameObject != gameObject &&
-                   dragTarget.CanAddObjects &&
-                   (dragTarget.MaxObjects == 0 || dragTarget.transform.childCount < dragTarget.MaxObjects) &&
-                   (_layerMask.value & (1 << dragTarget.gameObject.layer)) != 0;
+                dragTarget.gameObject != gameObject &&
+                dragTarget.CanAddObjects  &&
+                (dragTarget.MaxObjects == 0 || dragTarget.transform.childCount < dragTarget.MaxObjects) &&
+                (_layerMask.value & (1 << dragTarget.gameObject.layer)) != 0;
         }
 
-        private void GetInsertPositionAndRadius(FlexalonNode node, Vector3 target, out Vector3 position,
-            out float radius)
+        private void GetInsertPositionAndRadius(FlexalonNode node, Vector3 target, out Vector3 position, out float radius)
         {
             var worldBoxScale = node.GetWorldBoxScale(true);
             var scale = transform.lossyScale;

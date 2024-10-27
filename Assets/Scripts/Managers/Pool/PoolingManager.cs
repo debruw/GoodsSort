@@ -20,7 +20,7 @@ namespace GameTemplate.Managers.Pool
         {
             if (Instance != null)
             {
-                throw new System.Exception("Multiple Sound Players!");
+                throw new System.Exception("Multiple Pools!");
             }
 
             DontDestroyOnLoad(gameObject);

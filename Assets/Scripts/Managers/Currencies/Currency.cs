@@ -11,6 +11,7 @@ namespace Game.Managers.Currencies
         public string currencySign;
         public int currencyAmount;
         public bool isBuyable;
+        [HideInInspector] public int currencyHoldAmount;
 
         private int currencyId;
 

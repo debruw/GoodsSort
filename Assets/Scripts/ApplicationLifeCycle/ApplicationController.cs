@@ -18,17 +18,18 @@ namespace GameTemplate.ApplicationLifeCycle
     {
         IDisposable m_Subscriptions;
         [SerializeField] private CurrencyManager _currencyManager;
+        [SerializeField] private LevelManager _levelManager;
 
         protected override void Configure(IContainerBuilder builder)
         {
             base.Configure(builder);
 
             builder.Register<SceneLoader>(Lifetime.Singleton);
-            builder.Register<LevelManager>(Lifetime.Singleton);
 
             builder.Register<PersistentGameState>(Lifetime.Singleton);
 
             builder.RegisterInstance(_currencyManager);
+            builder.RegisterInstance(_levelManager);
 
             builder.RegisterInstance(new MessageChannel<QuitApplicationMessage>()).AsImplementedInterfaces();
         }

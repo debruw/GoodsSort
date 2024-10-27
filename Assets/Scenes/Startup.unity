@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: d135bfa555a1ee14d9c648f006d92d6f,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -172,6 +173,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   _currencyManager: {fileID: 11400000, guid: 0deb7db69d997534a847af2ac2709f5c, type: 2}
+  _levelManager: {fileID: 11400000, guid: 5ad0f4bb503cc8748bac3f180ccb1010, type: 2}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0

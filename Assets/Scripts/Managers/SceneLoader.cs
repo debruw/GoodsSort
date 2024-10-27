@@ -43,6 +43,7 @@ namespace GameTemplate.Managers
         // SceneLoader.Instance.LoadScene("MainMenu");
         public virtual void LoadScene(string sceneName, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
+            Debug.Log(sceneName);
             // Load using SceneManager
             var loadOperation = SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
             if (loadSceneMode == LoadSceneMode.Single)

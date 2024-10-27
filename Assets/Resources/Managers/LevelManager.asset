@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelType: 2
   levelPrefabs:
-  - {fileID: 6038298831448436078, guid: 3110282f74df3c44faf3b2f20152bca4, type: 3}
+  - {fileID: 6038298831448436078, guid: b45ef9a02e277b7419324d9aba71bf77, type: 3}
   levelScenes:
   - sceneAsset: {fileID: 102900000, guid: a6b77adc76de7f14a94f2112bce0065f, type: 3}
     scenePath: Assets/Scenes/Levels/SampleLevelScene.unity

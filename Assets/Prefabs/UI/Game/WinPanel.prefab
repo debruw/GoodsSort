@@ -360,7 +360,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
+  m_fontSize: 83.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -491,8 +491,8 @@ CanvasGroup:
   m_GameObject: {fileID: 3321471332143497516}
   m_Enabled: 1
   m_Alpha: 0
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &5949258191435565482
 GameObject:
@@ -505,6 +505,7 @@ GameObject:
   - component: {fileID: 7389658002934005128}
   - component: {fileID: 7373544600422913542}
   - component: {fileID: 6846062437953557334}
+  - component: {fileID: 3449765539101424470}
   m_Layer: 5
   m_Name: LevelText (TMP)
   m_TagString: Untagged
@@ -628,6 +629,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3449765539101424470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5949258191435565482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2824f4f29e8a4de3b2e16b970845ddc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6556154041979395716
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,6 +652,7 @@ GameObject:
   - component: {fileID: 5701712235133155543}
   - component: {fileID: 1855765698404902096}
   - component: {fileID: 5495562785378921187}
+  - component: {fileID: 2254771002314283635}
   m_Layer: 5
   m_Name: Earnings
   m_TagString: Untagged
@@ -700,6 +714,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &2254771002314283635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6556154041979395716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a194e5633e84de09675bbf7f70d2494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EarnedCoinText: {fileID: 1721467163188852420}
 --- !u!1001 &2287556835821267483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -818,6 +845,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1384fb960853f5941bb361ff46b9594c, type: 3}
+--- !u!114 &1721467163188852420 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 602613262780619999, guid: 1384fb960853f5941bb361ff46b9594c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2287556835821267483}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8101280201106291842 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8057660711783683737, guid: 1384fb960853f5941bb361ff46b9594c,

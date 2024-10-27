@@ -32,6 +32,11 @@ namespace GameTemplate.Managers.SceneManagers
         {
             get => levelId;
         }
+        
+        public int UILevelId
+        {
+            get => levelId + 1;
+        }
 
         public LevelTypes LevelType
         {

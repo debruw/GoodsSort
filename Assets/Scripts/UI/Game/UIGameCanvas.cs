@@ -8,6 +8,15 @@ namespace GameTemplate.UI
     {
         [SerializeField]
         private GameObject WinPanel, LosePanel;
+
+        public void Initialize(int levelID)
+        {
+            LevelTextSetter[] levelTextSetters = GetComponentsInChildren<LevelTextSetter>();
+            foreach (var levelTextSetter in levelTextSetters)
+            {
+                levelTextSetter.SetLevelText(levelID);
+            }
+        }
         
         public void GameFinished(WinState gameWon)
         {
@@ -24,6 +33,8 @@ namespace GameTemplate.UI
         void OpenPanel(CanvasGroup group)
         {
             group.DOFade(1, 1);
+            group.interactable = true;
+            group.blocksRaycasts = true;
         }
     }
 }

@@ -17,14 +17,6 @@ namespace GameTemplate.Gameplay.GameState
 
         [SerializeField] private UICanvas UICanvas;
 
-        protected override void Awake()
-        {
-            base.Awake();
-
-            //TrySignIn();
-            //Do some menu things here
-        }
-
         protected override void Start()
         {
             base.Start();
@@ -51,7 +43,7 @@ namespace GameTemplate.Gameplay.GameState
         [Inject] private CurrencyManager _currencyManager;
         public void AddCurrency()
         {
-            _currencyManager.EarnMoney(new CurrencyArgs(0,10,false));
+            _currencyManager.EarnCurrency(new CurrencyArgs(0,10,false));
         }
     }
 }

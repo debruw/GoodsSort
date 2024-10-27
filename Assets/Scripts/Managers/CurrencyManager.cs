@@ -18,13 +18,13 @@ namespace GameTemplate.Managers
             }
         }
 
-        public void EarnMoney(EventArgs eventArgs)
+        public void EarnCurrency(EventArgs eventArgs)
         {
             var currencyValue = eventArgs as CurrencyArgs;
             currencies[currencyValue.currencyId].Earn(currencyValue.changeAmount);
         }
 
-        public void SpendMoney(EventArgs eventArgs)
+        public void SpendCurrency(EventArgs eventArgs)
         {
             var currencyValue = eventArgs as CurrencyArgs;
             currencies[currencyValue.currencyId].Spend(currencyValue.changeAmount);

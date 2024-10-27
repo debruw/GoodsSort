@@ -88,7 +88,7 @@ namespace Flexalon
 
         /// <summary> Returns the singleton Flexalon component, or creates one if it doesn't exist. </summary>
         /// <returns> The singleton Flexalon component. </returns>
-        public static bool TryGetOrCreate(out Flexalon instance)
+        internal static bool TryGetOrCreate(out Flexalon instance)
         {
             bool created = false;
             if (!_instance)
