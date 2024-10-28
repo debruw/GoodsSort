@@ -1,5 +1,7 @@
 using System;
+using _Game.Scripts.Timer;
 using Flexalon;
+using GameTemplate.Gameplay.GameState;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,7 +16,7 @@ namespace GameTemplate._Game.Scripts.Match
             {
                 _objectType = value;
 
-                _interactable.enabled = _objectType != null;
+                SetInteractState();
             }
         }
 
@@ -28,12 +30,19 @@ namespace GameTemplate._Game.Scripts.Match
         {
             _matchGroup = GetComponentInParent<MatchGroup>();
             _interactable = GetComponent<FlexalonInteractable>();
+
+            if (transform.position.z > 0)
+            {
+                SetInteractState(false);
+            }
+
+            _interactable.DragStart.AddListener(DragStarted);
         }
 
-        public void SpawnObjectEditor(ObjectType _objectType)
+        void DragStarted(FlexalonInteractable arg0)
         {
-            this._objectType = _objectType;
-            PrefabUtility.InstantiatePrefab(this._objectType.prefab, transform);
+            GameSceneState.OnFirstTouch?.Invoke();
+            _interactable.DragStart.RemoveListener(DragStarted);
         }
 
         public void TryToDropNewPlace()
@@ -47,12 +56,13 @@ namespace GameTemplate._Game.Scripts.Match
                 Transform objectHit = hit.transform;
                 if (objectHit.TryGetComponent(out FlexalonDragTarget target))
                 {
-                    SingleGroup group = target.GetComponent<SingleGroup>();
-                    if (group.CheckIsFirstEmpty())
+                    SingleGroup singleGroup = target.GetComponent<SingleGroup>();
+                    if (singleGroup.CheckIsFirstEmpty())
                     {
                         //move this settings to new queue object
-                        group.TakeThisObject(_objectType, transform.GetChild(0));
-                        _objectType = null;
+                        singleGroup.TakeThisObject(_objectType, transform.GetChild(0));
+                        ObjectTypeAsset = null;
+                        singleGroup.GetComponentInParent<MatchGroup>().CheckMatchAndEmpty();
                         _matchGroup.CheckMatchAndEmpty();
                     }
                 }
@@ -64,5 +74,31 @@ namespace GameTemplate._Game.Scripts.Match
             //TODO pop effect
             Destroy(gameObject);
         }
+
+        public void SetInteractState(bool state = true)
+        {
+            if (!state)
+            {
+                Debug.Log(gameObject.name);
+                _interactable.Draggable = state;
+                return;
+            }
+            
+            if (_interactable == null)
+            {
+                _interactable = GetComponent<FlexalonInteractable>();
+            }
+
+            _interactable.Draggable = _objectType != null;
+        }
+
+#if UNITY_EDITOR
+        public void SpawnObjectEditor(ObjectType _objectType)
+        {
+            _interactable = GetComponent<FlexalonInteractable>();
+            ObjectTypeAsset = _objectType;
+            PrefabUtility.InstantiatePrefab(this._objectType.prefab, transform);
+        }
+#endif
     }
 }

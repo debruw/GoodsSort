@@ -1,10 +1,13 @@
+#if UNITY_EDITOR
 using System;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
+
 namespace UISwitcher {
+
 	public static class CreateUtility {
 		private const string CANVAS_PREFAB_NAME_IN_RESOURCES = "Canvas";
 		public static void CreateUIElement(string path) {
@@ -33,9 +36,9 @@ namespace UISwitcher {
 		}
 
 		private static void Place(GameObject gameObject) {
-		//	SceneView lastView = SceneView.lastActiveSceneView;
+			//	SceneView lastView = SceneView.lastActiveSceneView;
 
-		//	gameObject.transform.position = /*lastView ? lastView.pivot : */Vector3.zero;
+			//	gameObject.transform.position = /*lastView ? lastView.pivot : */Vector3.zero;
 
 			StageUtility.PlaceGameObjectInCurrentStage(gameObject);
 			GameObjectUtility.EnsureUniqueNameForSibling(gameObject);
@@ -48,3 +51,4 @@ namespace UISwitcher {
 		}
 	}
 }
+#endif

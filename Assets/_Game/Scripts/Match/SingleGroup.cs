@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -16,12 +17,6 @@ namespace GameTemplate._Game.Scripts.Match
             QueueObjects = GetComponentsInChildren<QueueObject>().ToList();
         }
 
-        //TODO qeueue mechanic
-        public void AddQueue()
-        {
-            PrefabUtility.InstantiatePrefab(QueueObjectPrefab, transform);
-        }
-
         public bool  CheckIsFirstEmpty()
         {
             //Debug.LogError(QueueObjects[0].ObjectTypeAsset);
@@ -33,7 +28,6 @@ namespace GameTemplate._Game.Scripts.Match
             QueueObjects[0].ObjectTypeAsset = objectType;
             getChild.parent = QueueObjects[0].transform;
             getChild.localPosition = Vector3.zero;
-            GetComponentInParent<MatchGroup>().CheckMatchAndEmpty();
         }
 
         public ObjectType GetFirstObjectType()
@@ -49,6 +43,8 @@ namespace GameTemplate._Game.Scripts.Match
             {
                 QueueObjects.Add(Instantiate(QueueObjectPrefab, transform).GetComponent<QueueObject>());
             }
+            //open interactable for new front object
+            QueueObjects[0].SetInteractState();
         }
         
         public void DestroyFirstObject()
@@ -59,6 +55,15 @@ namespace GameTemplate._Game.Scripts.Match
             {
                 QueueObjects.Add(Instantiate(QueueObjectPrefab, transform).GetComponent<QueueObject>());
             }
+            //open interactable for new front object
+            QueueObjects[0].SetInteractState();
         }
+
+#if UNITY_EDITOR
+        public void AddQueue()
+        {
+            PrefabUtility.InstantiatePrefab(QueueObjectPrefab, transform);
+        }
+#endif
     }
 }

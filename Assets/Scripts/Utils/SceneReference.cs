@@ -16,10 +16,10 @@ namespace GameTemplate.Utils
     [Serializable]
     public class SceneReference : ISerializationCallbackReceiver
     {
-#if UNITY_EDITOR
         // What we use in editor to select the scene
         [SerializeField] private Object sceneAsset;
         public string SceneName => sceneAsset.name;
+#if UNITY_EDITOR
         private bool IsValidSceneAsset
         {
             get

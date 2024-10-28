@@ -1,9 +1,12 @@
+#if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.UI;
 using UnityEngine;
 
 namespace UISwitcher {
+
 	[CustomEditor(typeof(UINullableToggle))]
-	public class UINullableToggleEditor : UnityEditor.UI.SelectableEditor {
+	public class UINullableToggleEditor : SelectableEditor {
 		private SerializedProperty _isOnNullable, _nullableValueEnabled, _onValueChangedEvent, _onNullableValueChangedEvent;
 		private UINullableToggle _nullableToggle;
 
@@ -92,8 +95,9 @@ namespace UISwitcher {
 			EditorGUI.DrawRect(rect, color);
 		}
 	}
-}
 
+}
+#endif
 /*if (!value.HasValue) {
 	EditorGUI.showMixedValue = true;
 

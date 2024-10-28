@@ -37,7 +37,7 @@ namespace GameTemplate
             {
                 if (m_FadeOutCoroutine != null)
                 {
-                    Debug.Log("start loading screen");
+                    //Debug.Log("start loading screen");
                     StopCoroutine(m_FadeOutCoroutine);
                 }
             }
@@ -49,7 +49,7 @@ namespace GameTemplate
             {
                 if (m_FadeOutCoroutine != null)
                 {
-                    Debug.Log("stop loading screen");
+                    //Debug.Log("stop loading screen");
                     StopCoroutine(m_FadeOutCoroutine);
                 }
                 m_FadeOutCoroutine = StartCoroutine(FadeOutCoroutine());

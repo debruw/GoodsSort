@@ -419,6 +419,8 @@ MonoBehaviour:
   m_ThemeMusic: {fileID: 8300000, guid: bdec1f3aeb8d55a4db1fe5982333566a, type: 3}
   m_WinSound: {fileID: 8300000, guid: 46b4d3afd1a5ea4459b1c140198fde19, type: 3}
   m_LoseSound: {fileID: 8300000, guid: 9375cdadf2fd5ba47a89d038fa5d9909, type: 3}
+  m_TimerMusic: {fileID: 8300000, guid: 35ff591d4151bcc41a93b44c57676538, type: 3}
+  m_TimesUpSound: {fileID: 8300000, guid: b340586c97f119c4dbd80d7fd1189273, type: 3}
   m_source: {fileID: 942202349}
 --- !u!82 &942202349
 AudioSource:

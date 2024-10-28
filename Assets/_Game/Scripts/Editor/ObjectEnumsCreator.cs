@@ -11,7 +11,7 @@ namespace GameTemplate._Game.Scripts.Editor
         public ObjectType[] objects;
 
 #if UNITY_EDITOR
-        [Button("Apply Pool")]
+        [Button("Apply Enums")]
         public void Generate()
         {
             string filePathAndName = "Assets/_Game/Scripts/Objects/ObjectId.cs"; //The folder Scripts/Enums/ is expected to exist
@@ -22,7 +22,8 @@ namespace GameTemplate._Game.Scripts.Editor
                 streamWriter.WriteLine("{");
                 for (int i = 0; i < objects.Length; i++)
                 {
-                    streamWriter.WriteLine("\t" + objects[i].name + ",");
+                    string objectName = objects[i].name.Split("_")[1];
+                    streamWriter.WriteLine("\t" + objectName + ",");
                 }
                 streamWriter.WriteLine("}");
             }

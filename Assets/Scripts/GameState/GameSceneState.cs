@@ -1,4 +1,7 @@
+using System;
 using System.Collections;
+using _Game.Scripts.Timer;
+using AssetKits.ParticleImage;
 using GameTemplate.Audio;
 using GameTemplate.Events;
 using GameTemplate.Managers;
@@ -12,18 +15,31 @@ namespace GameTemplate.Gameplay.GameState
     public class GameSceneState : GameStateBehaviour
     {
         public override GameState ActiveState => GameState.Game;
+        public static Action OnFirstTouch;
 
         [SerializeField] private Transform _levelPrefabParent;
         [SerializeField] private UIGameCanvas _uiGameCanvas;
         [SerializeField] private EarningsUI _earningsUI;
+        [SerializeField] private TimerController _timerController;
+        [SerializeField] private ParticleImage _winParticleImage;
 
         // Wait time constants for switching to post game after the game is won or lost
-        private const float k_WinDelay = 1.0f;
-        private const float k_LoseDelay = 1.0f;
+        private const float k_WinDelay = 2.0f;
+        private const float k_LoseDelay = 2.0f;
+
+        #region Injections
 
         [Inject] PersistentGameState m_PersistentGameState;
         [Inject] LevelManager _levelManager;
         [Inject] CurrencyManager _currencyManager;
+
+        #endregion
+
+        protected override void Awake()
+        {
+            base.Awake();
+            OnFirstTouch += StartTimer;
+        }
 
         protected override void Start()
         {
@@ -32,9 +48,11 @@ namespace GameTemplate.Gameplay.GameState
             m_PersistentGameState.Reset();
             //Do some things here
             _levelManager.Initialize(_levelPrefabParent);
+
             _uiGameCanvas.Initialize(_levelManager.UILevelId);
 
             LevelPrefab.OnGameFinished += OnGameFinished;
+            TimerController.OnTimesUp += OnGameFinished;
         }
 
         protected override void Configure(IContainerBuilder builder)
@@ -46,6 +64,18 @@ namespace GameTemplate.Gameplay.GameState
         {
             base.OnDestroy();
             LevelPrefab.OnGameFinished -= OnGameFinished;
+            TimerController.OnTimesUp -= OnGameFinished;
+        }
+        
+        public void StartTimer()
+        {
+            OnFirstTouch -= StartTimer;
+            
+            //We dont use timer at first level
+            if (_levelManager.LevelId == 0)
+                return;
+            
+            _timerController.StartTimer();
         }
 
         public void OnGameFinished(bool isWin)
@@ -57,13 +87,14 @@ namespace GameTemplate.Gameplay.GameState
         IEnumerator CoroGameOver(float wait, bool gameWon)
         {
             m_PersistentGameState.SetWinState(gameWon ? WinState.Win : WinState.Loss);
+            _winParticleImage.Play();
 
             //TODO change this game to game
             // wait 5 seconds for game animations to finish
             yield return new WaitForSeconds(wait);
 
             //win or lose canvas should open
-            CurrencyArgs args =_earningsUI.SetEarnings();
+            CurrencyArgs args = _earningsUI.SetEarnings();
             _currencyManager.EarnCurrency(args);
             _uiGameCanvas.GameFinished(m_PersistentGameState.WinState);
 
@@ -71,7 +102,7 @@ namespace GameTemplate.Gameplay.GameState
             {
                 SoundPlayer.Instance.PlayWinSound();
                 //TODO set next level
-                //_levelManager.SetNextLevel();
+                _levelManager.SetNextLevel();
             }
             else
             {
@@ -81,12 +112,35 @@ namespace GameTemplate.Gameplay.GameState
 
         public void NextButtonClick()
         {
-            SceneLoader.Instance.LoadScene(SceneLoader.MainMenu);
+            if (_levelManager.LevelId < 2)
+            {
+                SceneLoader.Instance.LoadScene(SceneLoader.Game);
+            }
+            else
+            {
+                SceneLoader.Instance.LoadScene(SceneLoader.MainMenu);
+            }
         }
-        
+
         public void RetryButtonClick()
         {
             SceneLoader.Instance.LoadScene(SceneLoader.Game);
         }
+
+#if UNITY_EDITOR
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                _levelManager.SetNextLevel();
+                RetryButtonClick();
+            }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                _levelManager.SetPreviousLevel();
+                RetryButtonClick();
+            }
+        }
+#endif
     }
 }

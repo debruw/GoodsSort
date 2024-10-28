@@ -1,5 +1,7 @@
 using UnityEditor;
 namespace UISwitcher {
+
+#if UNITY_EDITOR
 	public static class ContextMenuUtility {
 		[MenuItem("GameObject/UIComponents/Switcher")]
 		public static void CreateSwitcher(MenuCommand menuCommand) {
@@ -16,4 +18,5 @@ namespace UISwitcher {
 			CreateUtility.CreateUIElement("UISwitcherThin");
 		}
 	}
+#endif
 }

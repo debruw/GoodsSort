@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelType: 2
   levelPrefabs:
-  - {fileID: 6038298831448436078, guid: b45ef9a02e277b7419324d9aba71bf77, type: 3}
+  - {fileID: 6007742366068949679, guid: d4f76c06b66b5ba4b999909f9fcef29c, type: 3}
+  - {fileID: 5841139469760357790, guid: 3645d2d61caedcc49a6fe80a5d2265bc, type: 3}
+  - {fileID: 2195252328453655526, guid: 01a9874664326504dbe3d9fdd57aaad5, type: 3}
+  - {fileID: 219828511289003281, guid: e114de9df0903df438abf280beaac797, type: 3}
+  - {fileID: 4481942612490924918, guid: 6103313d39387ad4dbaa127daac5dc05, type: 3}
   levelScenes:
   - sceneAsset: {fileID: 102900000, guid: a6b77adc76de7f14a94f2112bce0065f, type: 3}
     scenePath: Assets/Scenes/Levels/SampleLevelScene.unity

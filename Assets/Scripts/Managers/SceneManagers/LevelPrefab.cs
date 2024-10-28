@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using _Game.Scripts;
 using GameTemplate._Game.Scripts;
 using GameTemplate._Game.Scripts.Match;
-using GameTemplate.Gameplay.GameState;
+using UnityEditor;
 using UnityEngine;
 using Random = System.Random;
 
@@ -12,9 +13,7 @@ namespace GameTemplate.Managers.SceneManagers
 {
     public class LevelPrefab : MonoBehaviour, IDisposable
     {
-        public List<ObjectType> LevelObjectTypes = new List<ObjectType>();
-
-        public int counter = -1;
+        public float LevelTime = 60;
 
         private List<QueueObject> _queueObjects;
 
@@ -58,6 +57,11 @@ namespace GameTemplate.Managers.SceneManagers
         }
 
 #if UNITY_EDITOR
+        [Header("Editor Level creation settings")]
+        public GameObject BlockPrefab;
+        [Space]
+        public List<int> BlockGroupStartCounts = new List<int>();
+        public List<ObjectType> LevelObjectTypes = new List<ObjectType>();
         List<ObjectType> forSpawn = new List<ObjectType>();
 
         [ContextMenu("Create random level")]
@@ -77,9 +81,9 @@ namespace GameTemplate.Managers.SceneManagers
             forSpawn = ShuffleListWithOrderBy(forSpawn);
 
             // create enough queue object for prefab
-            MatchGroup[] matchGroups = GetComponentsInChildren<MatchGroup>();
+            List<MatchGroup> matchGroups = GetComponentsInChildren<MatchGroup>().ToList();
 
-            int emptyQueueCount = matchGroups.Length;
+            int emptyQueueCount = matchGroups.Count;
             emptyQueueCount *= 2;
             emptyQueueCount += forSpawn.Count;
             emptyQueueCount -= (emptyQueueCount % 3);
@@ -87,7 +91,7 @@ namespace GameTemplate.Managers.SceneManagers
             int totalSpawnCount = 0;
             for (int j = 0; j < 10; j++)
             {
-                for (int i = 0; i < matchGroups.Length; i++)
+                for (int i = 0; i < matchGroups.Count; i++)
                 {
                     matchGroups[i].SpawnRow();
                     totalSpawnCount += 3;
@@ -112,6 +116,47 @@ namespace GameTemplate.Managers.SceneManagers
             for (int i = 0; i < forSpawn.Count; i++)
             {
                 _queueObjects[i].SpawnObjectEditor(forSpawn[i]);
+            }
+
+            //Fix all interactable states
+            FixAllInteractableStates();
+            
+            //create blocks
+            matchGroups = ShuffleListWithOrderBy(matchGroups);
+            for (var i = 0; i < BlockGroupStartCounts.Count; i++)
+            {
+                var blockCount = BlockGroupStartCounts[i];
+                GameObject prefab = PrefabUtility.InstantiatePrefab(BlockPrefab, matchGroups[i].transform) as GameObject;
+                prefab.GetComponent<GroupBlocker>().Initialize(blockCount);
+                matchGroups[i].CloseAllInteractables();
+            }
+        }
+        
+        public void FixAllInteractableStates()
+        {
+            List<QueueObject> queueObjects = transform.GetComponentsInChildren<QueueObject>().ToList();
+
+            foreach (var queueObject in queueObjects)
+            {
+                queueObject.SetInteractState();
+            }
+        }
+
+        [ContextMenu("Clear level")]
+        public void ClearLevel()
+        {
+            List<QueueObject> queueObjects = transform.GetComponentsInChildren<QueueObject>().ToList();
+
+            foreach (var queueObject in queueObjects)
+            {
+                DestroyImmediate(queueObject.gameObject);
+            }
+            
+            List<GroupBlocker> groupBlockers = transform.GetComponentsInChildren<GroupBlocker>().ToList();
+
+            foreach (var groupBlocker in groupBlockers)
+            {
+                DestroyImmediate(groupBlocker.gameObject);
             }
         }
 

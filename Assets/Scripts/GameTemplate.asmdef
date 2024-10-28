@@ -7,7 +7,8 @@
         "Unity.TextMeshPro",
         "UISwitcher",
         "DOTween.Modules",
-        "Flexalon"
+        "Flexalon",
+        "ParticleImage"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

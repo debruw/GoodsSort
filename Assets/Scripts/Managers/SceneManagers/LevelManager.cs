@@ -1,9 +1,8 @@
+using _Game.Scripts.Timer;
 using GameTemplate.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using VContainer;
-using VContainer.Unity;
 
 namespace GameTemplate.Managers.SceneManagers
 {
@@ -71,13 +70,20 @@ namespace GameTemplate.Managers.SceneManagers
 
                 lastLoadedLevelPrefab = levelPrefabs[levelId % levelPrefabs.Length];
                 //instantiate scene prefab
-                Instantiate(lastLoadedLevelPrefab, levelPrefabParent);
+                lastLoadedLevelPrefab = Instantiate(lastLoadedLevelPrefab, levelPrefabParent);
+                TimerController.OnSetTimer.Invoke(lastLoadedLevelPrefab.GetComponent<LevelPrefab>().LevelTime);
             }
         }
 
         public void SetNextLevel()
         {
             levelId++;
+            UserPrefs.SetLevelId(levelId);
+        }
+        
+        public void SetPreviousLevel()
+        {
+            levelId--;
             UserPrefs.SetLevelId(levelId);
         }
     }

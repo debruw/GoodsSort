@@ -1,9 +1,6 @@
-using System;
 using GameTemplate.Events;
-using GameTemplate.Managers;
 using TMPro;
 using UnityEngine;
-using VContainer;
 using Random = UnityEngine.Random;
 
 namespace GameTemplate.UI

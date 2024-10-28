@@ -1,3 +1,4 @@
+using GameTemplate.Audio;
 using GameTemplate.Events;
 using GameTemplate.Gameplay.UI;
 using GameTemplate.Managers;
@@ -37,6 +38,7 @@ namespace GameTemplate.Gameplay.GameState
 
         public void OnStartClicked()
         {
+            SoundPlayer.Instance.StopThemeMusic();
             SceneLoader.Instance.LoadScene(SceneLoader.Game);
         }
 

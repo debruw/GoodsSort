@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace UISwitcher {
 
+#if UNITY_EDITOR
 	[CustomEditor(typeof(UISwitcher))]
 	public class UISwitcherEditor : UINullableToggleEditor {
 		private SerializedProperty _tipRect;
@@ -46,4 +47,5 @@ namespace UISwitcher {
 			EditorGUI.DrawRect(r, color);
 		}
 	}
+#endif
 }
