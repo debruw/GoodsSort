@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using DG.Tweening;
 using GameTemplate.Audio;
-using GameTemplate.Gameplay.GameState;
 using GameTemplate.Managers.SceneManagers;
 using TMPro;
 using UnityEngine;

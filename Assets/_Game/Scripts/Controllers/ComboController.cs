@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using GameTemplate._Game.Scripts.Match;
 using GameTemplate.Managers.SceneManagers;

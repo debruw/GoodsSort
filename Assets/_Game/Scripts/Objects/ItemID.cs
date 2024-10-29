@@ -1,4 +1,4 @@
-public enum ObjectID
+public enum ItemID
 {
 	Chips,
 	Coffee,

@@ -8,7 +8,7 @@ namespace GameTemplate._Game.Scripts.Editor
     [CreateAssetMenu(fileName = "ObjectEnumsCreator", menuName = "Scriptable Objects/Object Enums Creator")]
     public class ObjectEnumsCreator : ScriptableObject
     {
-        public ObjectType[] objects;
+        public ItemType[] objects;
 
 #if UNITY_EDITOR
         [Button("Apply Enums")]

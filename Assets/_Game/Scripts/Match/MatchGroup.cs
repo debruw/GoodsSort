@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using _Game.Scripts.Timer;
-using Flexalon;
 using GameTemplate.Managers.SceneManagers;
 using UnityEngine;
 
@@ -13,7 +11,7 @@ namespace GameTemplate._Game.Scripts.Match
         public List<SingleGroup> SingleGroups = new List<SingleGroup>();
 
         public bool HasBlocker = false;
-        
+
         public static event Action<Vector3> OnMatched;
 
         public void CheckMatchAndEmpty()
@@ -25,10 +23,10 @@ namespace GameTemplate._Game.Scripts.Match
             else
             {
                 bool isMatched = true;
-                ObjectType currentType = SingleGroups[0].GetFirstObjectType();
+                ItemType currentType = SingleGroups[0].GetFirstObject();
                 foreach (var singleGroup in SingleGroups)
                 {
-                    if (currentType != singleGroup.GetFirstObjectType())
+                    if (currentType.itemID != singleGroup.GetFirstObjectType())
                     {
                         isMatched = false;
                         break;
@@ -41,7 +39,7 @@ namespace GameTemplate._Game.Scripts.Match
                     //StarController
                     //ComboController
                     OnMatched?.Invoke(transform.position);
-                    
+
                     PopFirstRaw();
                     GetComponentInParent<LevelPrefab>().CheckLevelOver();
                 }
@@ -69,7 +67,7 @@ namespace GameTemplate._Game.Scripts.Match
             bool isEmptyLine = true;
             foreach (var singleGroup in SingleGroups)
             {
-                if (!singleGroup.CheckIsFirstEmpty())
+                if (!singleGroup.IsFirstEmpty())
                 {
                     isEmptyLine = false;
                     break;
@@ -80,21 +78,31 @@ namespace GameTemplate._Game.Scripts.Match
             return isEmptyLine;
         }
 
-        public bool IsFirstEmpty()
+        public bool IsAllFirstFilled()
         {
-            return SingleGroups[0].CheckIsFirstEmpty();
+            bool isAllFilled = true;
+            foreach (var singleGroup in SingleGroups)
+            {
+                if (singleGroup.IsFirstEmpty())
+                {
+                    isAllFilled = false;
+                    break;
+                }
+            }
+
+            return isAllFilled;
         }
 
         public void CloseAllInteractables()
         {
             List<QueueObject> childInteractables = transform.GetComponentsInChildren<QueueObject>().ToList();
-            
+
             foreach (var childInteractable in childInteractables)
             {
                 childInteractable.SetInteractState(false);
             }
         }
-        
+
         public void BlockerDeactivated()
         {
             HasBlocker = false;

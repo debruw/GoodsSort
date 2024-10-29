@@ -1,8 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using _Game.Scripts;
+using Cysharp.Threading.Tasks;
 using GameTemplate._Game.Scripts;
 using GameTemplate._Game.Scripts.Match;
 using UnityEditor;
@@ -32,26 +32,24 @@ namespace GameTemplate.Managers.SceneManagers
             Instance = this;
         }
 
-        public void CheckLevelOver()
+        public async UniTaskVoid CheckLevelOver()
         {
-            StartCoroutine(waitandCheck());
+            //this wait is for pop effects to over
+            await UniTask.Delay(200); // waits for .1 second
 
-            IEnumerator waitandCheck()
+            List<QueueObject> queueObjects = GetComponentsInChildren<QueueObject>()
+                .Where(x => x.ItemTypeAsset != null).ToList();
+
+            if (queueObjects.Count == 0)
             {
-                yield return new WaitForEndOfFrame();
-                List<QueueObject> queueObjects = GetComponentsInChildren<QueueObject>()
-                    .Where(x => x.ObjectTypeAsset != null).ToList();
-
-                if (queueObjects.Count == 0)
-                {
-                    //Game Finished Win
-                    OnGameFinished?.Invoke(true, false);
-                }
+                //Game Finished Win
+                OnGameFinished?.Invoke(true, false);
             }
         }
 
-        public void CheckAllFirstFilled()
+        public async UniTaskVoid CheckAllFirstFilled()
         {
+            await UniTask.Delay(200); //wait .1 second
             bool allFilled = true;
             List<MatchGroup> matchGroups = GetComponentsInChildren<MatchGroup>().ToList();
 
@@ -62,7 +60,7 @@ namespace GameTemplate.Managers.SceneManagers
                     continue;
                 }
 
-                if (mg.IsFirstEmpty())
+                if (!mg.IsAllFirstFilled())
                 {
                     allFilled = false;
                 }
@@ -87,8 +85,8 @@ namespace GameTemplate.Managers.SceneManagers
         public GameObject BlockPrefab;
 
         [Space] public List<int> BlockGroupStartCounts = new List<int>();
-        public List<ObjectType> LevelObjectTypes = new List<ObjectType>();
-        List<ObjectType> forSpawn = new List<ObjectType>();
+        public List<ItemType> LevelObjectTypes = new List<ItemType>();
+        List<ItemType> forSpawn = new List<ItemType>();
 
         [ContextMenu("Create random level")]
         private void CreateRandomLevel()

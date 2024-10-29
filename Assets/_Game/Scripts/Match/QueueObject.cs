@@ -1,21 +1,20 @@
-using System;
-using _Game.Scripts.Timer;
 using Flexalon;
 using GameTemplate.Gameplay.GameState;
 using GameTemplate.Managers.SceneManagers;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameTemplate._Game.Scripts.Match
 {
     public class QueueObject : MonoBehaviour
     {
-        public ObjectType ObjectTypeAsset
+        public ItemType ItemTypeAsset
         {
-            get { return _objectType; }
+            get { return ıtemType; }
             set
             {
-                _objectType = value;
+                ıtemType = value;
 
                 SetInteractState();
             }
@@ -23,7 +22,7 @@ namespace GameTemplate._Game.Scripts.Match
 
         public LayerMask _layerMask;
 
-        [SerializeField] private ObjectType _objectType;
+        [FormerlySerializedAs("_objectType")] [SerializeField] private ItemType ıtemType;
         private MatchGroup _matchGroup;
         private FlexalonInteractable _interactable;
 
@@ -58,14 +57,15 @@ namespace GameTemplate._Game.Scripts.Match
                 if (objectHit.TryGetComponent(out FlexalonDragTarget target))
                 {
                     SingleGroup singleGroup = target.GetComponent<SingleGroup>();
-                    if (singleGroup.CheckIsFirstEmpty())
+                    if (singleGroup.IsFirstEmpty())
                     {
                         //move this settings to new queue object
-                        singleGroup.TakeThisObject(_objectType, transform.GetChild(0));
-                        ObjectTypeAsset = null;
+                        singleGroup.TakeThisObject(ıtemType, transform.GetChild(0));
+                        ItemTypeAsset = null;
                         singleGroup.GetComponentInParent<MatchGroup>().CheckMatchAndEmpty();
                         _matchGroup.CheckMatchAndEmpty();
-                        GetComponentInParent<LevelPrefab>().CheckAllFirstFilled();
+                        
+                        _ = GetComponentInParent<LevelPrefab>().CheckAllFirstFilled();
                     }
                 }
             }
@@ -74,7 +74,7 @@ namespace GameTemplate._Game.Scripts.Match
         public void Pop()
         {
             //TODO pop effect
-            Destroy(gameObject);
+            Destroy(gameObject,.15f);
         }
 
         public void SetInteractState(bool state = true)
@@ -90,15 +90,15 @@ namespace GameTemplate._Game.Scripts.Match
                 _interactable = GetComponent<FlexalonInteractable>();
             }
 
-            _interactable.Draggable = _objectType != null;
+            _interactable.Draggable = ıtemType != null;
         }
 
 #if UNITY_EDITOR
-        public void SpawnObjectEditor(ObjectType _objectType)
+        public void SpawnObjectEditor(ItemType ıtemType)
         {
             _interactable = GetComponent<FlexalonInteractable>();
-            ObjectTypeAsset = _objectType;
-            PrefabUtility.InstantiatePrefab(this._objectType.prefab, transform);
+            ItemTypeAsset = ıtemType;
+            PrefabUtility.InstantiatePrefab(this.ıtemType.prefab, transform);
         }
 #endif
     }

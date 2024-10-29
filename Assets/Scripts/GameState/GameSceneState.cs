@@ -1,14 +1,13 @@
 using System;
-using System.Collections;
 using _Game.Scripts.Timer;
 using AssetKits.ParticleImage;
+using Cysharp.Threading.Tasks;
 using GameTemplate.Audio;
 using GameTemplate.Events;
 using GameTemplate.Managers;
 using GameTemplate.Managers.SceneManagers;
 using GameTemplate.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 using VContainer;
 
 namespace GameTemplate.Gameplay.GameState
@@ -88,22 +87,22 @@ namespace GameTemplate.Gameplay.GameState
                 _allLinesFilledText.SetActive(true);
             }
             // start the coroutine
-            StartCoroutine(CoroGameOver(isWin ? k_WinDelay : k_LoseDelay, isWin));
+            _ = CoroGameOver(isWin ? k_WinDelay : k_LoseDelay, isWin);
         }
         public void OnGameFinished(bool isWin)
         {
             // start the coroutine
-            StartCoroutine(CoroGameOver(isWin ? k_WinDelay : k_LoseDelay, isWin));
+            _ = CoroGameOver(isWin ? k_WinDelay : k_LoseDelay, isWin);
         }
 
-        IEnumerator CoroGameOver(float wait, bool gameWon)
+        async UniTaskVoid CoroGameOver(float wait, bool gameWon)
         {
             m_PersistentGameState.SetWinState(gameWon ? WinState.Win : WinState.Loss);
             if(gameWon) _winParticleImage.Play();
 
             //TODO change this game to game
-            // wait 5 seconds for game animations to finish
-            yield return new WaitForSeconds(wait);
+            // wait for game animations to finish
+            await UniTask.Delay((int)(wait * 1000)); // waits for wait*1 second
 
             //win or lose canvas should open
             CurrencyArgs args = _earningsUI.SetEarnings();

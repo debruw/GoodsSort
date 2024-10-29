@@ -8,7 +8,8 @@
         "UISwitcher",
         "DOTween.Modules",
         "Flexalon",
-        "ParticleImage"
+        "ParticleImage",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

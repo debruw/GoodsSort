@@ -1,12 +1,8 @@
-using System;
 using System.Collections.Generic;
 using AssetKits.ParticleImage;
-using DG.Tweening;
 using GameTemplate._Game.Scripts.Match;
 using TMPro;
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
 
 namespace _Game.Scripts.Timer
 {
