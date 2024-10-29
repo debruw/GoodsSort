@@ -8,6 +8,7 @@ using GameTemplate.Managers;
 using GameTemplate.Managers.SceneManagers;
 using GameTemplate.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 using VContainer;
 
 namespace GameTemplate.Gameplay.GameState
@@ -22,6 +23,7 @@ namespace GameTemplate.Gameplay.GameState
         [SerializeField] private EarningsUI _earningsUI;
         [SerializeField] private TimerController _timerController;
         [SerializeField] private ParticleImage _winParticleImage;
+        [SerializeField] private GameObject _allLinesFilledText;
 
         // Wait time constants for switching to post game after the game is won or lost
         private const float k_WinDelay = 2.0f;
@@ -65,6 +67,7 @@ namespace GameTemplate.Gameplay.GameState
             base.OnDestroy();
             LevelPrefab.OnGameFinished -= OnGameFinished;
             TimerController.OnTimesUp -= OnGameFinished;
+            OnFirstTouch = null; 
         }
         
         public void StartTimer()
@@ -78,6 +81,15 @@ namespace GameTemplate.Gameplay.GameState
             _timerController.StartTimer();
         }
 
+        public void OnGameFinished(bool isWin, bool isAllLinesFilled)
+        {
+            if (isAllLinesFilled)
+            {
+                _allLinesFilledText.SetActive(true);
+            }
+            // start the coroutine
+            StartCoroutine(CoroGameOver(isWin ? k_WinDelay : k_LoseDelay, isWin));
+        }
         public void OnGameFinished(bool isWin)
         {
             // start the coroutine
@@ -87,7 +99,7 @@ namespace GameTemplate.Gameplay.GameState
         IEnumerator CoroGameOver(float wait, bool gameWon)
         {
             m_PersistentGameState.SetWinState(gameWon ? WinState.Win : WinState.Loss);
-            _winParticleImage.Play();
+            if(gameWon) _winParticleImage.Play();
 
             //TODO change this game to game
             // wait 5 seconds for game animations to finish

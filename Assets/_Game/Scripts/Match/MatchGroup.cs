@@ -12,11 +12,13 @@ namespace GameTemplate._Game.Scripts.Match
     {
         public List<SingleGroup> SingleGroups = new List<SingleGroup>();
 
+        public bool HasBlocker = false;
+        
         public static event Action<Vector3> OnMatched;
 
         public void CheckMatchAndEmpty()
         {
-            if (IsEmpty())
+            if (IsAllEmpty())
             {
                 DestroyFirstRow();
             }
@@ -60,11 +62,9 @@ namespace GameTemplate._Game.Scripts.Match
             {
                 singleGroup.PopFirstObject();
             }
-            //TODO add points for pop
-            //TODO check is all objects poped
         }
 
-        public bool IsEmpty()
+        public bool IsAllEmpty()
         {
             bool isEmptyLine = true;
             foreach (var singleGroup in SingleGroups)
@@ -80,6 +80,11 @@ namespace GameTemplate._Game.Scripts.Match
             return isEmptyLine;
         }
 
+        public bool IsFirstEmpty()
+        {
+            return SingleGroups[0].CheckIsFirstEmpty();
+        }
+
         public void CloseAllInteractables()
         {
             List<QueueObject> childInteractables = transform.GetComponentsInChildren<QueueObject>().ToList();
@@ -89,9 +94,10 @@ namespace GameTemplate._Game.Scripts.Match
                 childInteractable.SetInteractState(false);
             }
         }
-
+        
         public void BlockerDeactivated()
         {
+            HasBlocker = false;
             List<QueueObject> childInteractables = new List<QueueObject>();
             foreach (var childInteractable in childInteractables)
             {

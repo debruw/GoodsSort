@@ -61,7 +61,7 @@ namespace _Game.Scripts.Timer
             UpdateTimerText();
         }
 
-        public void StopTimer(bool isWin)
+        public void StopTimer(bool isWin, bool isAllLinesFilled)
         {
             timerPaused = true;
             txtTimer.color = Color.white;
@@ -96,6 +96,7 @@ namespace _Game.Scripts.Timer
                 yield return null;
             }
 
+            //Game Finished LOSE
             txtTimer.text = "00:00";
             SoundPlayer.Instance.PlayTimesUpSound();
             OnTimesUp?.Invoke(false);

@@ -64,7 +64,7 @@ namespace _Game.Scripts.Timer
             ComboCoroutine = StartCoroutine(StartComboCor());
         }
 
-        public void StopCombo(bool b)
+        public void StopCombo(bool isWin, bool isAllLinesFilled)
         {
             if (ComboCoroutine != null) StopCoroutine(ComboCoroutine);
         }

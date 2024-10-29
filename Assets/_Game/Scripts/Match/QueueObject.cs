@@ -2,6 +2,7 @@ using System;
 using _Game.Scripts.Timer;
 using Flexalon;
 using GameTemplate.Gameplay.GameState;
+using GameTemplate.Managers.SceneManagers;
 using UnityEditor;
 using UnityEngine;
 
@@ -64,6 +65,7 @@ namespace GameTemplate._Game.Scripts.Match
                         ObjectTypeAsset = null;
                         singleGroup.GetComponentInParent<MatchGroup>().CheckMatchAndEmpty();
                         _matchGroup.CheckMatchAndEmpty();
+                        GetComponentInParent<LevelPrefab>().CheckAllFirstFilled();
                     }
                 }
             }
@@ -79,7 +81,6 @@ namespace GameTemplate._Game.Scripts.Match
         {
             if (!state)
             {
-                Debug.Log(gameObject.name);
                 _interactable.Draggable = state;
                 return;
             }
