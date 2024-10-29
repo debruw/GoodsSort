@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Flexalon;
 using GameTemplate.Gameplay.GameState;
 using GameTemplate.Managers.SceneManagers;
@@ -73,8 +74,13 @@ namespace GameTemplate._Game.Scripts.Match
 
         public void Pop()
         {
-            //TODO pop effect
+            PunchScaleY();
             Destroy(gameObject,.15f);
+        }
+
+        void PunchScaleY()
+        {
+            transform.DOPunchScale(new Vector3(0, .1f, 0), .1f, 1);
         }
 
         public void SetInteractState(bool state = true)

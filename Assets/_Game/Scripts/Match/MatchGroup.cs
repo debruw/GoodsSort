@@ -24,12 +24,19 @@ namespace GameTemplate._Game.Scripts.Match
             {
                 bool isMatched = true;
                 ItemType currentType = SingleGroups[0].GetFirstObject();
-                foreach (var singleGroup in SingleGroups)
+                if (currentType == null)
                 {
-                    if (currentType.itemID != singleGroup.GetFirstObjectType())
+                    isMatched = false;
+                }
+                else
+                {
+                    foreach (var singleGroup in SingleGroups)
                     {
-                        isMatched = false;
-                        break;
+                        if (currentType.itemID != singleGroup.GetFirstObjectType())
+                        {
+                            isMatched = false;
+                            break;
+                        }
                     }
                 }
 
