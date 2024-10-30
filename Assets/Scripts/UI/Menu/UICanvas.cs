@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using GameTemplate.UI.Currencies;
 using GameTemplate.Audio;
 using GameTemplate.Managers;
+using GameTemplate.Managers.Scene;
+using GameTemplate.UI;
 using GameTemplate.UI.Currency;
 using UnityEngine;
 using VContainer;
@@ -18,13 +20,17 @@ namespace GameTemplate.Gameplay.UI
         [Inject] CurrencyManager _CurrencyManager;
         [Inject] SceneLoader _SceneLoader;
         [Inject] SoundPlayer _SoundPlayer;
+        [Inject] LevelManager _LevelManager;
 
         [Inject]
-        public void Construct(SceneLoader sceneLoader, SoundPlayer SoundPlayer)
+        public void Construct(SceneLoader sceneLoader, SoundPlayer SoundPlayer, LevelManager levelManager)
         {
             //Debug.Log("Construct UICanvas");
             _SceneLoader = sceneLoader;
             _SoundPlayer = SoundPlayer;
+            _LevelManager = levelManager;
+            
+            GetComponentInChildren<LevelTextSetter>().SetLevelText(_LevelManager.UILevelId);
         }
 
         public void Start()

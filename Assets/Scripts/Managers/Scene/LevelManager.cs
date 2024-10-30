@@ -4,6 +4,7 @@ using GameTemplate.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer;
+using VContainer.Unity;
 
 namespace GameTemplate.Managers.Scene
 {
@@ -14,23 +15,29 @@ namespace GameTemplate.Managers.Scene
         Prefab
     }
 
-    [CreateAssetMenu(fileName = "LevelManager", menuName = "Scriptable Objects/Level Manager")]
-    public class LevelManager : ScriptableObject
+    public class LevelManager: IInitializable
     {
-        [SerializeField] private int loopStartIndex;
-        private int levelId = 0;
+        private int _levelId = 0;
 
         [Inject] SceneLoader _SceneLoader;
         [Inject] LevelData _LevelData;
 
+        [Inject]
+        public void Construct(SceneLoader sceneLoader, LevelData levelData)
+        {
+            Debug.Log("LevelManager constructed");
+            _SceneLoader = sceneLoader;
+            _LevelData = levelData;
+        }
+
         public int LevelId
         {
-            get => levelId;
+            get => _levelId;
         }
 
         public int UILevelId
         {
-            get => levelId + 1;
+            get => _levelId + 1;
         }
 
         public LevelTypes LevelType
@@ -40,11 +47,14 @@ namespace GameTemplate.Managers.Scene
 
         private string lastLoadedLevelScene = "";
         private GameObject lastLoadedLevelPrefab;
-
-        public void Initialize(Transform levelPrefabParent)
+        
+        public void Initialize()
         {
-            this.levelId = UserPrefs.GetLevelId();
-
+            _levelId = UserPrefs.GetLevelId();
+        }
+        
+        public void SpawnLevel(Transform levelPrefabParent)
+        {
             LoadLevel(levelPrefabParent);
         }
 
@@ -57,30 +67,30 @@ namespace GameTemplate.Managers.Scene
                     SceneManager.UnloadSceneAsync(lastLoadedLevelScene);
                 }
 
-                lastLoadedLevelScene = _LevelData.levelScenes[levelId % _LevelData.levelScenes.Length].SceneName;
+                lastLoadedLevelScene = _LevelData.levelScenes[_levelId % _LevelData.levelScenes.Length].SceneName;
                 //load scene additive
                 _SceneLoader.LoadScene(new SceneLoadData(
                     lastLoadedLevelScene, LoadSceneMode.Additive, true, true));
             }
             else
             {
-                lastLoadedLevelPrefab = _LevelData.levelPrefabs[levelId % _LevelData.levelPrefabs.Length];
+                lastLoadedLevelPrefab = _LevelData.levelPrefabs[_levelId % _LevelData.levelPrefabs.Length];
                 //instantiate scene prefab
-                lastLoadedLevelPrefab = Instantiate(lastLoadedLevelPrefab, levelPrefabParent);
+                lastLoadedLevelPrefab = Object.Instantiate(lastLoadedLevelPrefab, levelPrefabParent);
                 TimerController.OnSetTimer.Invoke(lastLoadedLevelPrefab.GetComponent<LevelPrefab>().LevelTime);
             }
         }
 
         public void SetNextLevel()
         {
-            levelId++;
-            UserPrefs.SetLevelId(levelId);
+            _levelId++;
+            UserPrefs.SetLevelId(_levelId);
         }
 
         public void SetPreviousLevel()
         {
-            levelId--;
-            UserPrefs.SetLevelId(levelId);
+            _levelId--;
+            UserPrefs.SetLevelId(_levelId);
         }
     }
 }

@@ -8,8 +8,8 @@ using GameTemplate.Managers;
 using GameTemplate.Managers.Scene;
 using GameTemplate.UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using VContainer;
+using VContainer.Unity;
 
 namespace GameTemplate.Gameplay.GameState
 {
@@ -51,7 +51,7 @@ namespace GameTemplate.Gameplay.GameState
 
             m_PersistentGameState.Reset();
             //Do some things here
-            _levelManager.Initialize(_levelPrefabParent);
+            _levelManager.SpawnLevel(_levelPrefabParent);
 
             _uiGameCanvas.Initialize(_levelManager.UILevelId);
 

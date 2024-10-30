@@ -1,5 +1,6 @@
 using GameTemplate.Gameplay.GameplayObjects.Audio;
 using GameTemplate.Gameplay.UI;
+using GameTemplate.Managers.Scene;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -17,10 +18,8 @@ namespace GameTemplate.Gameplay.GameState
         protected override void Configure(IContainerBuilder builder)
         {
             base.Configure(builder);
-
-            builder.RegisterComponentInHierarchy<UICanvas>();
             
-            //builder.RegisterComponentInHierarchy<MainMenuMusicStarter>();
+            builder.RegisterComponentInHierarchy<UICanvas>();
         }
 
         protected override void OnDestroy()

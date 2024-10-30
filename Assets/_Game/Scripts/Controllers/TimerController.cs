@@ -37,7 +37,7 @@ namespace _Game.Scripts.Timer
         #region Injections
 
         [Inject] LevelManager _levelManager;
-        [Inject] private SoundPlayer m_SoundPlayer;
+        [Inject] SoundPlayer m_SoundPlayer;
 
         #endregion
 

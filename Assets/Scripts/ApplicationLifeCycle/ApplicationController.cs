@@ -6,6 +6,7 @@ using GameTemplate.Audio;
 using GameTemplate.Gameplay.GameState;
 using GameTemplate.Infrastructure;
 using GameTemplate.Managers;
+using GameTemplate.Managers.Scene;
 using GameTemplate.ScriptableObjects;
 using GameTemplate.UI.Currency;
 using ScriptableObjects;
@@ -39,6 +40,7 @@ namespace GameTemplate.ApplicationLifeCycle
             builder.Register<SceneLoader>(Lifetime.Singleton);
             builder.Register<CurrencyManager>(Lifetime.Singleton);
             builder.Register<SoundPlayer>(Lifetime.Singleton);
+            builder.Register<LevelManager>(Lifetime.Singleton);
 
             builder.Register<PersistentGameState>(Lifetime.Singleton);
 
