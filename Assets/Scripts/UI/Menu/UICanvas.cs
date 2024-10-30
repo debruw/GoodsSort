@@ -22,14 +22,14 @@ namespace GameTemplate.Gameplay.UI
         [Inject]
         public void Construct(SceneLoader sceneLoader, SoundPlayer SoundPlayer)
         {
-            Debug.Log("Construct UICanvas");
+            //Debug.Log("Construct UICanvas");
             _SceneLoader = sceneLoader;
             _SoundPlayer = SoundPlayer;
         }
 
         public void Start()
         {
-            Debug.Log("UI Canvas Start");
+            //Debug.Log("UI Canvas Start");
             List<Currency> currencies = _CurrencyManager._CurrencyData.currencies;
 
             for (int i = 0; i < currencies.Count; i++)

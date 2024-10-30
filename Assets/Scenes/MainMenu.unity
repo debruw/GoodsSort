@@ -724,7 +724,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1304466543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1225,7 +1225,7 @@ PrefabInstance:
     - target: {fileID: 6977151268681041748, guid: 12187630713931b46ad96ee291e39cfa,
         type: 3}
       propertyPath: autoInjectGameObjects.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6977151268681041748, guid: 12187630713931b46ad96ee291e39cfa,
         type: 3}

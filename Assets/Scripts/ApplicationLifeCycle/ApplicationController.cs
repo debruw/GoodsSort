@@ -38,7 +38,7 @@ namespace GameTemplate.ApplicationLifeCycle
             
             builder.Register<SceneLoader>(Lifetime.Singleton);
             builder.Register<CurrencyManager>(Lifetime.Singleton);
-            builder.RegisterEntryPoint<SoundPlayer>().As<SoundPlayer>();
+            builder.Register<SoundPlayer>(Lifetime.Singleton);
 
             builder.Register<PersistentGameState>(Lifetime.Singleton);
 

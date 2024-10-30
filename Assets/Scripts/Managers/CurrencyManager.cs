@@ -15,7 +15,7 @@ namespace GameTemplate.Managers
         [Inject]
         public void Construct(CurrencyData CurrencyData)
         { 
-            Debug.Log("Constructing currency manager");
+            //Debug.Log("Constructing currency manager");
             _CurrencyData = CurrencyData;
             
             for (int i = 0; i < _CurrencyData.currencies.Count; i++)

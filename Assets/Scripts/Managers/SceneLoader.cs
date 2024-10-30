@@ -27,7 +27,7 @@ namespace GameTemplate.Managers
         [Inject]
         public void Construct(SceneData sceneData)
         {
-            Debug.Log("Constructing SceneLoader");
+            //Debug.Log("Constructing SceneLoader");
             _sceneData = sceneData;
         }
 
@@ -40,13 +40,13 @@ namespace GameTemplate.Managers
         public async UniTask LoadScene(SceneLoadData sceneLoadData)
         {
             OnBeforeSceneLoad?.Invoke();
-            Debug.Log("OnBeforeSceneLoad");
+            //Debug.Log("OnBeforeSceneLoad");
 
             // Load using SceneManager
             await SceneManager.LoadSceneAsync(sceneLoadData._sceneName, sceneLoadData._sceneMode).ToUniTask();
 
             OnSceneLoaded?.Invoke();
-            Debug.Log("OnSceneLoaded");
+            //Debug.Log("OnSceneLoaded");
         }
     }
 }

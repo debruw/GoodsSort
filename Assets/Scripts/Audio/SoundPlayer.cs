@@ -7,21 +7,25 @@ using VContainer.Unity;
 namespace GameTemplate.Audio
 {
     [RequireComponent(typeof(AudioSource))]
-    public class SoundPlayer : MonoBehaviour
+    public class SoundPlayer
     {
-        private AudioSource m_source;
+        public AudioSource m_source;
         
-        [Inject]
-        AudioData audioData;
+        
+        AudioData _audioData;
+        private Transform _Holder;
 
-        public void Start()
+        [Inject]
+        public void Construct(AudioData audioData)
         {
-            m_source = GetComponent<AudioSource>();
+            _audioData = audioData;
+            
+            _Holder = new GameObject("SoundPlayer").transform;
         }
 
         public void PlayThemeMusic(bool restart)
         {
-            PlayTrack(audioData.GetAudio(AudioID.Music), true, restart);
+            PlayTrack(_audioData.GetAudio(AudioID.Music), true, restart);
         }
         
         public void StopThemeMusic()
@@ -31,26 +35,32 @@ namespace GameTemplate.Audio
 
         public void PlayTimerMusic(bool restart)
         {
-            PlayTrack(audioData.GetAudio(AudioID.Ticking), true, restart);
+            PlayTrack(_audioData.GetAudio(AudioID.Ticking), true, restart);
         }
 
         public void PlayWinSound()
         {
-            PlayTrack(audioData.GetAudio(AudioID.Win), false, false);
+            PlayTrack(_audioData.GetAudio(AudioID.Win), false, false);
         }
 
         public void PlayLoseSound()
         {
-            PlayTrack(audioData.GetAudio(AudioID.Lose), false, false);
+            PlayTrack(_audioData.GetAudio(AudioID.Lose), false, false);
         }
 
         public void PlayTimesUpSound()
         {
-            PlayTrack(audioData.GetAudio(AudioID.TimesUp), false, false);
+            PlayTrack(_audioData.GetAudio(AudioID.TimesUp), false, false);
         }
 
         private void PlayTrack(AudioClip clip, bool looping, bool restart)
         {
+            if (m_source == null)
+            {
+                var clone = Object.Instantiate(_audioData.audioObject);
+                m_source = clone.GetComponent<AudioSource>();
+            }
+            
             if (m_source.isPlaying)
             {
                 // if we dont want to restart the clip, do nothing if it is playing

@@ -112,3 +112,5 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  audioObject: {fileID: 90362005414443727, guid: b845cd8fb3ccfee498d6b3518ecd63f1,
+    type: 3}
