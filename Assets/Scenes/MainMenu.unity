@@ -708,18 +708,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506471192}
   m_CullTransparentMesh: 1
---- !u!114 &1161753872 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6977151268681041748, guid: 12187630713931b46ad96ee291e39cfa,
-    type: 3}
-  m_PrefabInstance: {fileID: 6530186044061071109}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27e73d40f0854c91b92758e418875ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1304466542
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,7 +724,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1304466543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -925,10 +913,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1161753872}
-        m_TargetAssemblyTypeName: GameTemplate.Gameplay.GameState.MainMenuState,
-          Assembly-CSharp
-        m_MethodName: OnStartClicked
+      - m_Target: {fileID: 254107937}
+        m_TargetAssemblyTypeName: GameTemplate.Gameplay.UI.UICanvas, GameTemplate
+        m_MethodName: PlayButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1227,6 +1214,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6977151268681041748, guid: 12187630713931b46ad96ee291e39cfa,
         type: 3}
+      propertyPath: _canvas
+      value: 
+      objectReference: {fileID: 254107937}
+    - target: {fileID: 6977151268681041748, guid: 12187630713931b46ad96ee291e39cfa,
+        type: 3}
       propertyPath: UICanvas
       value: 
       objectReference: {fileID: 254107937}
@@ -1240,6 +1232,11 @@ PrefabInstance:
       propertyPath: autoInjectGameObjects.Array.data[0]
       value: 
       objectReference: {fileID: 626969071887614613}
+    - target: {fileID: 6977151268681041748, guid: 12187630713931b46ad96ee291e39cfa,
+        type: 3}
+      propertyPath: autoInjectGameObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 1304466542}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1357,6 +1354,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SettingsPanelCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7581690774058829651, guid: 9e135157213542443b7b0f5e50bf75bd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

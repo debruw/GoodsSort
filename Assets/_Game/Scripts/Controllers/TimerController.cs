@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using GameTemplate.Audio;
-using GameTemplate.Managers.SceneManagers;
+using GameTemplate.Managers.Scene;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -37,6 +37,7 @@ namespace _Game.Scripts.Timer
         #region Injections
 
         [Inject] LevelManager _levelManager;
+        [Inject] private SoundPlayer m_SoundPlayer;
 
         #endregion
 
@@ -74,10 +75,10 @@ namespace _Game.Scripts.Timer
             
             StartCoroutine(StartTimerCor());
         }
-
+        
         private IEnumerator StartTimerCor()
         {
-            SoundPlayer.Instance.PlayTimerMusic(true);
+            m_SoundPlayer.PlayTimerMusic(true);
             while (_timer > 0)
             {
                 if (!timerPaused)
@@ -96,7 +97,7 @@ namespace _Game.Scripts.Timer
 
             //Game Finished LOSE
             txtTimer.text = "00:00";
-            SoundPlayer.Instance.PlayTimesUpSound();
+            m_SoundPlayer.PlayTimesUpSound();
             OnTimesUp?.Invoke(false);
             txtTimer.color = Color.white;
             txtTimer.transform.localScale = Vector3.one;

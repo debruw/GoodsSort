@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 374073adec3a4be0b2807ae6a3685430, type: 3}
-  m_Name: CurrencyManager
+  m_Script: {fileID: 11500000, guid: fbb9da54278f4e789a868d286d81c053, type: 3}
+  m_Name: CurrencyData
   m_EditorClassIdentifier: 
   currencies:
   - currencyImage: {fileID: 21300000, guid: 68c6dd55fbff84c598bad2cd9fa46a66, type: 3}
     currencySign: 
     currencyAmount: 0
     isBuyable: 0
+    currencyHoldAmount: 0

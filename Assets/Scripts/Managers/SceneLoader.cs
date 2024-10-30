@@ -1,59 +1,52 @@
+using System;
+using System.Collections;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using GameTemplate.Managers.Scene;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VContainer;
+using VContainer.Unity;
 
 namespace GameTemplate.Managers
 {
-    public class SceneLoader : MonoBehaviour
+    public enum SceneType
     {
-        public const string MainMenu = "MainMenu";
-        public const string Game = "Game";
+        MainMenu,
+        Game
+    }
+    
+    public class SceneLoader
+    {
+        public static event Action OnBeforeSceneLoad = delegate { };
+        public static event Action OnSceneLoaded = delegate { };
+
+        private SceneData _sceneData;
         
-        /// <summary>
-        /// Manages a loading screen by wrapping around scene management APIs. It loads scene using the SceneManager,
-        /// or handles the starting and stopping of the loading screen.
-        /// </summary>
-        [SerializeField] LoadingScreen m_LoadingScreen;
-
-        public static SceneLoader Instance { get; protected set; }
-
-        public virtual void Awake()
+        [Inject]
+        public void Construct(SceneData sceneData)
         {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                Instance = this;
-            }
-
-            DontDestroyOnLoad(this);
+            Debug.Log("Constructing SceneLoader");
+            _sceneData = sceneData;
         }
 
-        public virtual void Start()
+        public void LoadSceneByType(SceneType sceneType, LoadSceneMode mode = LoadSceneMode.Single)
         {
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-
-        public void OnDestroy()
-        {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
+            LoadScene(new SceneLoadData(_sceneData.scenes[sceneType], mode, true, true));
         }
 
         // SceneLoader.Instance.LoadScene("MainMenu");
-        public virtual void LoadScene(string sceneName, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+        public async UniTask LoadScene(SceneLoadData sceneLoadData)
         {
-            // Load using SceneManager
-            var loadOperation = SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
-            if (loadSceneMode == LoadSceneMode.Single)
-            {
-                m_LoadingScreen.StartLoadingScreen(sceneName);
-            }
-        }
+            OnBeforeSceneLoad?.Invoke();
+            Debug.Log("OnBeforeSceneLoad");
 
-        void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
-        {
-            m_LoadingScreen.StopLoadingScreen();
+            // Load using SceneManager
+            await SceneManager.LoadSceneAsync(sceneLoadData._sceneName, sceneLoadData._sceneMode).ToUniTask();
+
+            OnSceneLoaded?.Invoke();
+            Debug.Log("OnSceneLoaded");
         }
     }
 }

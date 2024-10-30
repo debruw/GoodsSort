@@ -9,7 +9,7 @@ using UnityEditor;
 using UnityEngine;
 using Random = System.Random;
 
-namespace GameTemplate.Managers.SceneManagers
+namespace GameTemplate.Managers.Scene
 {
     public class LevelPrefab : MonoBehaviour, IDisposable
     {

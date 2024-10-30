@@ -1,6 +1,6 @@
 using System.Collections;
 using GameTemplate._Game.Scripts.Match;
-using GameTemplate.Managers.SceneManagers;
+using GameTemplate.Managers.Scene;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

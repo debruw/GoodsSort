@@ -1,13 +1,17 @@
 using System;
+using Audio;
 using UnityEngine;
 using GameTemplate.ApplicationLifecycle;
+using GameTemplate.Audio;
 using GameTemplate.Gameplay.GameState;
 using GameTemplate.Infrastructure;
 using GameTemplate.Managers;
-using GameTemplate.Managers.SceneManagers;
+using GameTemplate.ScriptableObjects;
+using GameTemplate.UI.Currency;
+using ScriptableObjects;
+using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;
-using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace GameTemplate.ApplicationLifeCycle
 {
@@ -17,24 +21,31 @@ namespace GameTemplate.ApplicationLifeCycle
     public class ApplicationController : LifetimeScope
     {
         IDisposable m_Subscriptions;
-        [SerializeField] private CurrencyManager _currencyManager;
-        [SerializeField] private LevelManager _levelManager;
+
+        public AudioData audioData;
+        public CurrencyData currencyData;
+        public SceneData sceneData;
+        public LevelData levelData;
 
         protected override void Configure(IContainerBuilder builder)
         {
             base.Configure(builder);
 
+            builder.RegisterInstance(audioData);
+            builder.RegisterInstance(currencyData);
+            builder.RegisterInstance(sceneData);
+            builder.RegisterInstance(levelData);
+            
             builder.Register<SceneLoader>(Lifetime.Singleton);
+            builder.Register<CurrencyManager>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<SoundPlayer>().As<SoundPlayer>();
 
             builder.Register<PersistentGameState>(Lifetime.Singleton);
-
-            builder.RegisterInstance(_currencyManager);
-            builder.RegisterInstance(_levelManager);
 
             builder.RegisterInstance(new MessageChannel<QuitApplicationMessage>()).AsImplementedInterfaces();
         }
 
-        private void Start()
+        public void Start()
         {
             var quitApplicationSub = Container.Resolve<ISubscriber<QuitApplicationMessage>>();
 
@@ -44,8 +55,7 @@ namespace GameTemplate.ApplicationLifeCycle
 
             DontDestroyOnLoad(gameObject);
             Application.targetFrameRate = 60;
-
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene(sceneData.scenes[SceneType.MainMenu]);
         }
 
         protected override void OnDestroy()

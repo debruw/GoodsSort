@@ -2,7 +2,7 @@ using System;
 using GameTemplate.Utils;
 using UnityEngine;
 
-namespace Game.Managers.Currencies
+namespace GameTemplate.UI.Currencies
 {
     [System.Serializable]
     public class Currency

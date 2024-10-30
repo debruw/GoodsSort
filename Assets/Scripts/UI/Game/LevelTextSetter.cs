@@ -1,7 +1,5 @@
-using GameTemplate.Managers.SceneManagers;
 using TMPro;
 using UnityEngine;
-using VContainer;
 
 namespace GameTemplate.UI
 {

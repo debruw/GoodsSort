@@ -1,5 +1,6 @@
 using GameTemplate.Audio;
 using UnityEngine;
+using VContainer;
 
 namespace GameTemplate.Gameplay.GameplayObjects.Audio
 {
@@ -11,10 +12,12 @@ namespace GameTemplate.Gameplay.GameplayObjects.Audio
         // set whether theme should restart if already playing
         [SerializeField]
         bool m_Restart;
-
-        void Start()
+        
+        [Inject] SoundPlayer m_SoundPlayer;
+        
+        public void Start()
         {
-            SoundPlayer.Instance.PlayThemeMusic(m_Restart);
+            m_SoundPlayer.PlayThemeMusic(m_Restart);
         }
     }
 }

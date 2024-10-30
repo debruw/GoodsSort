@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameTemplate.Managers.SceneManagers;
+using GameTemplate.Managers.Scene;
 using UnityEngine;
 
 namespace GameTemplate._Game.Scripts.Match

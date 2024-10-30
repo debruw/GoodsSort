@@ -5,9 +5,10 @@ using Cysharp.Threading.Tasks;
 using GameTemplate.Audio;
 using GameTemplate.Events;
 using GameTemplate.Managers;
-using GameTemplate.Managers.SceneManagers;
+using GameTemplate.Managers.Scene;
 using GameTemplate.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VContainer;
 
 namespace GameTemplate.Gameplay.GameState
@@ -33,6 +34,8 @@ namespace GameTemplate.Gameplay.GameState
         [Inject] PersistentGameState m_PersistentGameState;
         [Inject] LevelManager _levelManager;
         [Inject] CurrencyManager _currencyManager;
+        [Inject] SceneLoader m_SceneLoader;
+        [Inject] SoundPlayer m_SoundPlayer;
 
         #endregion
 
@@ -66,17 +69,17 @@ namespace GameTemplate.Gameplay.GameState
             base.OnDestroy();
             LevelPrefab.OnGameFinished -= OnGameFinished;
             TimerController.OnTimesUp -= OnGameFinished;
-            OnFirstTouch = null; 
+            OnFirstTouch = null;
         }
-        
+
         public void StartTimer()
         {
             OnFirstTouch -= StartTimer;
-            
+
             //We dont use timer at first level
             if (_levelManager.LevelId == 0)
                 return;
-            
+
             _timerController.StartTimer();
         }
 
@@ -86,9 +89,11 @@ namespace GameTemplate.Gameplay.GameState
             {
                 _allLinesFilledText.SetActive(true);
             }
+
             // start the coroutine
             _ = CoroGameOver(isWin ? k_WinDelay : k_LoseDelay, isWin);
         }
+
         public void OnGameFinished(bool isWin)
         {
             // start the coroutine
@@ -98,7 +103,7 @@ namespace GameTemplate.Gameplay.GameState
         async UniTaskVoid CoroGameOver(float wait, bool gameWon)
         {
             m_PersistentGameState.SetWinState(gameWon ? WinState.Win : WinState.Loss);
-            if(gameWon) _winParticleImage.Play();
+            if (gameWon) _winParticleImage.Play();
 
             //TODO change this game to game
             // wait for game animations to finish
@@ -111,13 +116,13 @@ namespace GameTemplate.Gameplay.GameState
 
             if (m_PersistentGameState.WinState == WinState.Win)
             {
-                SoundPlayer.Instance.PlayWinSound();
+                m_SoundPlayer.PlayWinSound();
                 //TODO set next level
                 _levelManager.SetNextLevel();
             }
             else
             {
-                SoundPlayer.Instance.PlayLoseSound();
+                m_SoundPlayer.PlayLoseSound();
             }
         }
 
@@ -125,17 +130,17 @@ namespace GameTemplate.Gameplay.GameState
         {
             if (_levelManager.LevelId < 2)
             {
-                SceneLoader.Instance.LoadScene(SceneLoader.Game);
+                m_SceneLoader.LoadSceneByType(SceneType.Game);
             }
             else
             {
-                SceneLoader.Instance.LoadScene(SceneLoader.MainMenu);
+                m_SceneLoader.LoadSceneByType(SceneType.MainMenu);
             }
         }
 
         public void RetryButtonClick()
         {
-            SceneLoader.Instance.LoadScene(SceneLoader.Game);
+            m_SceneLoader.LoadSceneByType(SceneType.Game);
         }
 
 #if UNITY_EDITOR
@@ -146,6 +151,7 @@ namespace GameTemplate.Gameplay.GameState
                 _levelManager.SetNextLevel();
                 RetryButtonClick();
             }
+
             if (Input.GetKeyDown(KeyCode.P))
             {
                 _levelManager.SetPreviousLevel();

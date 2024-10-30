@@ -1,7 +1,7 @@
 using DG.Tweening;
 using Flexalon;
 using GameTemplate.Gameplay.GameState;
-using GameTemplate.Managers.SceneManagers;
+using GameTemplate.Managers.Scene;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;

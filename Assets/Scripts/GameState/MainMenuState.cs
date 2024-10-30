@@ -1,7 +1,5 @@
-using GameTemplate.Audio;
-using GameTemplate.Events;
+using GameTemplate.Gameplay.GameplayObjects.Audio;
 using GameTemplate.Gameplay.UI;
-using GameTemplate.Managers;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -16,36 +14,18 @@ namespace GameTemplate.Gameplay.GameState
     {
         public override GameState ActiveState => GameState.MainMenu;
 
-        [SerializeField] private UICanvas UICanvas;
-
-        protected override void Start()
-        {
-            base.Start();
-            UICanvas.Initialize();
-        }
-
         protected override void Configure(IContainerBuilder builder)
         {
             base.Configure(builder);
 
-            builder.RegisterComponent(UICanvas);
+            builder.RegisterComponentInHierarchy<UICanvas>();
+            
+            //builder.RegisterComponentInHierarchy<MainMenuMusicStarter>();
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-        }
-
-        public void OnStartClicked()
-        {
-            SoundPlayer.Instance.StopThemeMusic();
-            SceneLoader.Instance.LoadScene(SceneLoader.Game);
-        }
-
-        [Inject] private CurrencyManager _currencyManager;
-        public void AddCurrency()
-        {
-            _currencyManager.EarnCurrency(new CurrencyArgs(0,10,false));
         }
     }
 }

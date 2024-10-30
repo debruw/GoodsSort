@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using GameTemplate.Managers;
 using UnityEngine;
 
 namespace GameTemplate
@@ -21,14 +23,17 @@ namespace GameTemplate
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
+            SceneLoader.OnBeforeSceneLoad += OpenLoadingScreen;
+            SceneLoader.OnSceneLoaded += CloseLoadingScreen;
         }
 
-        private void Start()
+        private void OnDestroy()
         {
-            SetCanvasVisibility(false);
+            SceneLoader.OnBeforeSceneLoad -= OpenLoadingScreen;
+            SceneLoader.OnSceneLoaded -= CloseLoadingScreen;
         }
-        
-        public void StartLoadingScreen(string sceneName)
+
+        public void OpenLoadingScreen()
         {
             SetCanvasVisibility(true);
             m_LoadingScreenRunning = true;
@@ -42,7 +47,7 @@ namespace GameTemplate
             }
         }
         
-        public void StopLoadingScreen()
+        public void CloseLoadingScreen()
         {
             if (m_LoadingScreenRunning)
             {
@@ -54,6 +59,7 @@ namespace GameTemplate
                 m_FadeOutCoroutine = StartCoroutine(FadeOutCoroutine());
             }
         }
+        
         void SetCanvasVisibility(bool visible)
         {
             m_CanvasGroup.alpha = visible ? 1 : 0;

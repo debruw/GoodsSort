@@ -1,33 +1,39 @@
 using System;
-using Game.Managers.Currencies;
 using GameTemplate.Events;
+using GameTemplate.UI.Currency;
+using GameTemplate.UI.Currency;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace GameTemplate.Managers
 {
-    [CreateAssetMenu(fileName = "CurrencyManager", menuName = "Scriptable Objects/Currency Manager")]
-    public class CurrencyManager : ScriptableObject
+    public class CurrencyManager
     {
-        public Currency[] currencies;
+        public CurrencyData _CurrencyData;
 
-        public void Initialize()
-        {
-            for (int i = 0; i < currencies.Length; i++)
+        [Inject]
+        public void Construct(CurrencyData CurrencyData)
+        { 
+            Debug.Log("Constructing currency manager");
+            _CurrencyData = CurrencyData;
+            
+            for (int i = 0; i < _CurrencyData.currencies.Count; i++)
             {
-                currencies[i].Initialize(i);
+                _CurrencyData.currencies[i].Initialize(i);
             }
         }
 
         public void EarnCurrency(EventArgs eventArgs)
         {
             var currencyValue = eventArgs as CurrencyArgs;
-            currencies[currencyValue.currencyId].Earn(currencyValue.changeAmount);
+            _CurrencyData.currencies[currencyValue.currencyId].Earn(currencyValue.changeAmount);
         }
 
         public void SpendCurrency(EventArgs eventArgs)
         {
             var currencyValue = eventArgs as CurrencyArgs;
-            currencies[currencyValue.currencyId].Spend(currencyValue.changeAmount);
+            _CurrencyData.currencies[currencyValue.currencyId].Spend(currencyValue.changeAmount);
         }
     }
 }
