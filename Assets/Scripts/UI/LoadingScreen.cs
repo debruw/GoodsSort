@@ -7,6 +7,8 @@ namespace GameTemplate
 {
     public class LoadingScreen : MonoBehaviour
     {
+        #region Variables
+
         [SerializeField]
         CanvasGroup m_CanvasGroup;
         
@@ -19,6 +21,8 @@ namespace GameTemplate
         bool m_LoadingScreenRunning;
         
         Coroutine m_FadeOutCoroutine;
+
+        #endregion
         
         private void Awake()
         {

@@ -7,6 +7,8 @@ namespace GameTemplate.Managers.Pool
 {
     public class PoolingManager : MonoBehaviour
     {
+        #region Variables
+
         public ScriptablePooling poolingData;
         public Transform poolParent;
         public PoolID testPoolId;
@@ -15,7 +17,9 @@ namespace GameTemplate.Managers.Pool
         private Dictionary<PoolID, Queue<GameObject>> objectPools = new Dictionary<PoolID, Queue<GameObject>>();
         
         public static PoolingManager Instance { get; private set; }
+        
 
+        #endregion
         private void Awake()
         {
             if (Instance != null)

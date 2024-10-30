@@ -1,19 +1,14 @@
-using GameTemplate.Managers.Scene;
 using GameTemplate.Utils;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameTemplate.ScriptableObjects
+namespace ScriptableObjects
 {
     [CreateAssetMenu(fileName = "LevelData", menuName = "Scriptable Objects/Level data", order = 0)]
     public class LevelData : ScriptableObject
     {
-        public LevelTypes levelType;
+        public int levelTimer;
 
-        [ShowIf("levelType", LevelTypes.Prefab)]
-        public GameObject[] levelPrefabs;
-
-        [ShowIf("levelType", LevelTypes.Scene)]
-        public SceneReference[] levelScenes;
+        public GameObject levelPrefab;
+        public SceneReference levelScene;
     }
 }

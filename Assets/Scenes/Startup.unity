@@ -176,7 +176,7 @@ MonoBehaviour:
   audioData: {fileID: 11400000, guid: a2760422684c8254e856727faf75e488, type: 2}
   currencyData: {fileID: 11400000, guid: 54da86420d9098843a0e6d71182fcff8, type: 2}
   sceneData: {fileID: 11400000, guid: fe014e76ac38931449c543fd39912fd9, type: 2}
-  levelData: {fileID: 11400000, guid: f2a32ec78bd7f6d4c84819b8768e0eea, type: 2}
+  levelDataHolder: {fileID: 11400000, guid: f2a32ec78bd7f6d4c84819b8768e0eea, type: 2}
 --- !u!1 &737294651
 GameObject:
   m_ObjectHideFlags: 0

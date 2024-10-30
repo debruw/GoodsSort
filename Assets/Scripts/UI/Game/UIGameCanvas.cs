@@ -7,14 +7,19 @@ namespace GameTemplate.UI
     public class UIGameCanvas : MonoBehaviour
     {
         [SerializeField]
-        private GameObject WinPanel, LosePanel;
+        private GameObject TopPanel, WinPanel, LosePanel;
 
-        public void Initialize(int levelID)
+        public void Initialize(int UIlevelID)
         {
             LevelTextSetter[] levelTextSetters = GetComponentsInChildren<LevelTextSetter>();
             foreach (var levelTextSetter in levelTextSetters)
             {
-                levelTextSetter.SetLevelText(levelID);
+                levelTextSetter.SetLevelText(UIlevelID);
+            }
+
+            if (UIlevelID == 1)
+            {
+                TopPanel.SetActive(false);
             }
         }
         

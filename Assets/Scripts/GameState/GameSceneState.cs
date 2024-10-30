@@ -15,6 +15,8 @@ namespace GameTemplate.Gameplay.GameState
 {
     public class GameSceneState : GameStateBehaviour
     {
+        #region Variables
+
         public override GameState ActiveState => GameState.Game;
         public static Action OnFirstTouch;
 
@@ -28,6 +30,8 @@ namespace GameTemplate.Gameplay.GameState
         // Wait time constants for switching to post game after the game is won or lost
         private const float k_WinDelay = 2.0f;
         private const float k_LoseDelay = 2.0f;
+
+        #endregion
 
         #region Injections
 
@@ -62,6 +66,10 @@ namespace GameTemplate.Gameplay.GameState
         protected override void Configure(IContainerBuilder builder)
         {
             base.Configure(builder);
+
+            builder.RegisterComponentInHierarchy<ComboController>();
+            builder.RegisterComponentInHierarchy<StarController>();
+            builder.RegisterComponentInHierarchy<TimerController>();
         }
 
         protected override void OnDestroy()

@@ -19,10 +19,14 @@ namespace GameTemplate.Managers
     
     public class SceneLoader
     {
+        #region Variables
+
         public static event Action OnBeforeSceneLoad = delegate { };
         public static event Action OnSceneLoaded = delegate { };
 
         private SceneData _sceneData;
+
+        #endregion
         
         [Inject]
         public void Construct(SceneData sceneData)

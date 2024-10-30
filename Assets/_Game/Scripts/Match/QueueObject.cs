@@ -10,6 +10,8 @@ namespace GameTemplate._Game.Scripts.Match
 {
     public class QueueObject : MonoBehaviour
     {
+        #region Variables
+
         public ItemType ItemTypeAsset
         {
             get { return ıtemType; }
@@ -26,6 +28,8 @@ namespace GameTemplate._Game.Scripts.Match
         [FormerlySerializedAs("_objectType")] [SerializeField] private ItemType ıtemType;
         private MatchGroup _matchGroup;
         private FlexalonInteractable _interactable;
+
+        #endregion
 
         private void Start()
         {

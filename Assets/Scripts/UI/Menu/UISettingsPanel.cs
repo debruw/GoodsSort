@@ -10,11 +10,15 @@ namespace GameTemplate.Gameplay.UI
 
     public class UISettingsPanel : MonoBehaviour
     {
+        #region Variables
+
         [SerializeField]
         private UISwitcher.UISwitcher m_SoundToggle;
 
         [SerializeField]
         private UISwitcher.UISwitcher m_MusicToggle;
+
+        #endregion
 
         private void OnEnable()
         {

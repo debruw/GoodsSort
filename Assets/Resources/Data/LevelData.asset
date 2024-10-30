@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: LevelData
   m_EditorClassIdentifier: 
   levelType: 2
-  levelPrefabs:
-  - {fileID: 6007742366068949679, guid: d4f76c06b66b5ba4b999909f9fcef29c, type: 3}
-  - {fileID: 5841139469760357790, guid: 3645d2d61caedcc49a6fe80a5d2265bc, type: 3}
-  - {fileID: 2195252328453655526, guid: 01a9874664326504dbe3d9fdd57aaad5, type: 3}
-  - {fileID: 219828511289003281, guid: e114de9df0903df438abf280beaac797, type: 3}
-  - {fileID: 4481942612490924918, guid: 6103313d39387ad4dbaa127daac5dc05, type: 3}
-  levelScenes: []
+  levels:
+  - {fileID: 11400000, guid: ff786ac0aee67344282289fb4ff81062, type: 2}
+  - {fileID: 11400000, guid: 04cec98d1b2d38e4e8f45b36578ff5d3, type: 2}
+  - {fileID: 11400000, guid: 9e14f4451306d0d4e98618f868797888, type: 2}
+  - {fileID: 11400000, guid: 9e4e409d58f0d294ebb72f3d313b49ab, type: 2}
+  - {fileID: 11400000, guid: 0a27827d6f13cd1439daa443312f6660, type: 2}

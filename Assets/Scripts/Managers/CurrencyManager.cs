@@ -10,7 +10,11 @@ namespace GameTemplate.Managers
 {
     public class CurrencyManager
     {
+        #region Variables
+
         public CurrencyData _CurrencyData;
+
+        #endregion
 
         [Inject]
         public void Construct(CurrencyData CurrencyData)

@@ -13,14 +13,22 @@ namespace GameTemplate.Gameplay.UI
 {
     public class UICanvas : MonoBehaviour, IStartable
     {
+        #region Variables
+
         [SerializeField] private Transform currencyParent;
         [SerializeField] private GameObject CurrencyUIPrefab;
         public List<CurrencyUI> currencyPanels = new List<CurrencyUI>();
+
+        #endregion
+
+        #region Injections
 
         [Inject] CurrencyManager _CurrencyManager;
         [Inject] SceneLoader _SceneLoader;
         [Inject] SoundPlayer _SoundPlayer;
         [Inject] LevelManager _LevelManager;
+
+        #endregion
 
         [Inject]
         public void Construct(SceneLoader sceneLoader, SoundPlayer SoundPlayer, LevelManager levelManager)

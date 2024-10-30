@@ -265,7 +265,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 390057060}
+    m_TransformParent: {fileID: 437737877}
     m_Modifications:
     - target: {fileID: 2559037201267623759, guid: 88a59c8e316774bf68b9a81e990ede96,
         type: 3}
@@ -345,12 +345,12 @@ PrefabInstance:
     - target: {fileID: 2559037202506892817, guid: 88a59c8e316774bf68b9a81e990ede96,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2559037202506892817, guid: 88a59c8e316774bf68b9a81e990ede96,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2559037202506892817, guid: 88a59c8e316774bf68b9a81e990ede96,
         type: 3}
@@ -365,7 +365,7 @@ PrefabInstance:
     - target: {fileID: 2559037202506892817, guid: 88a59c8e316774bf68b9a81e990ede96,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -300
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2559037202506892817, guid: 88a59c8e316774bf68b9a81e990ede96,
         type: 3}
@@ -769,7 +769,7 @@ GameObject:
   - component: {fileID: 390057062}
   - component: {fileID: 390057061}
   m_Layer: 5
-  m_Name: Top
+  m_Name: TopPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -791,7 +791,6 @@ RectTransform:
   - {fileID: 1288741711}
   - {fileID: 1228362110}
   - {fileID: 704803166}
-  - {fileID: 167638427}
   m_Father: {fileID: 437737877}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -1055,6 +1054,7 @@ RectTransform:
   - {fileID: 221569439}
   - {fileID: 1009979318}
   - {fileID: 2272692883305629934}
+  - {fileID: 167638427}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1074,6 +1074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdee8ae70c4446f3bb8cb98081db6bfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TopPanel: {fileID: 390057059}
   WinPanel: {fileID: 221569438}
   LosePanel: {fileID: 3089000074580660579}
 --- !u!1 &648313090
@@ -2466,14 +2467,9 @@ PrefabInstance:
       objectReference: {fileID: 1009979317}
     - target: {fileID: 4629301544744335344, guid: 25df3d7c3bd22e242bbec98532779b96,
         type: 3}
-      propertyPath: autoInjectGameObjects.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4629301544744335344, guid: 25df3d7c3bd22e242bbec98532779b96,
-        type: 3}
       propertyPath: autoInjectGameObjects.Array.data[0]
       value: 
-      objectReference: {fileID: 1288741710}
+      objectReference: {fileID: 1228362109}
     - target: {fileID: 4629301544744335344, guid: 25df3d7c3bd22e242bbec98532779b96,
         type: 3}
       propertyPath: autoInjectGameObjects.Array.data[1]
@@ -2483,7 +2479,7 @@ PrefabInstance:
         type: 3}
       propertyPath: autoInjectGameObjects.Array.data[2]
       value: 
-      objectReference: {fileID: 704803165}
+      objectReference: {fileID: 1228362109}
     - target: {fileID: 6148815505135786069, guid: 25df3d7c3bd22e242bbec98532779b96,
         type: 3}
       propertyPath: m_LocalPosition.x

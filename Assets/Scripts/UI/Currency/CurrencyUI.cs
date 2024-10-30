@@ -8,6 +8,8 @@ namespace GameTemplate.UI.Currency
 {
     public class CurrencyUI : MonoBehaviour
     {
+        #region Variables
+
         public TextMeshProUGUI currencyAmountText;
         public Image currencyImage;
         public GameObject AddButton;
@@ -22,6 +24,8 @@ namespace GameTemplate.UI.Currency
         private int currencyAmount;
         private Coroutine incrementRoutine;
         private Tween punchTween;
+
+        #endregion
 
         public void Initialize(Sprite currencyIcon, string currencySign, int currencyAmount, bool isBuyable)
         {

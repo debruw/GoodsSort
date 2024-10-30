@@ -8,11 +8,15 @@ namespace GameTemplate._Game.Scripts.Match
 {
     public class MatchGroup : MonoBehaviour
     {
+        #region Variables
+
         public List<SingleGroup> SingleGroups = new List<SingleGroup>();
 
         public bool HasBlocker = false;
 
         public static event Action<Vector3> OnMatched;
+
+        #endregion
 
         public void CheckMatchAndEmpty()
         {
@@ -100,6 +104,17 @@ namespace GameTemplate._Game.Scripts.Match
             return isAllFilled;
         }
 
+        public void BlockerDeactivated()
+        {
+            HasBlocker = false;
+            List<QueueObject> childInteractables = GetComponentsInChildren<QueueObject>().ToList();
+            foreach (var childInteractable in childInteractables)
+            {
+                childInteractable.SetInteractState();
+            }
+        }
+
+#if UNITY_EDITOR
         public void CloseAllInteractables()
         {
             List<QueueObject> childInteractables = transform.GetComponentsInChildren<QueueObject>().ToList();
@@ -109,18 +124,7 @@ namespace GameTemplate._Game.Scripts.Match
                 childInteractable.SetInteractState(false);
             }
         }
-
-        public void BlockerDeactivated()
-        {
-            HasBlocker = false;
-            List<QueueObject> childInteractables = new List<QueueObject>();
-            foreach (var childInteractable in childInteractables)
-            {
-                childInteractable.SetInteractState();
-            }
-        }
-
-#if UNITY_EDITOR
+        
         public void SpawnRow()
         {
             foreach (var singleGroup in SingleGroups)

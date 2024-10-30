@@ -21,12 +21,16 @@ namespace GameTemplate.ApplicationLifeCycle
     /// </summary>
     public class ApplicationController : LifetimeScope
     {
+        #region Variables
+
         IDisposable m_Subscriptions;
 
         public AudioData audioData;
         public CurrencyData currencyData;
         public SceneData sceneData;
-        public LevelData levelData;
+        public LevelDataHolder levelDataHolder;
+
+        #endregion
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -35,7 +39,7 @@ namespace GameTemplate.ApplicationLifeCycle
             builder.RegisterInstance(audioData);
             builder.RegisterInstance(currencyData);
             builder.RegisterInstance(sceneData);
-            builder.RegisterInstance(levelData);
+            builder.RegisterInstance(levelDataHolder);
             
             builder.Register<SceneLoader>(Lifetime.Singleton);
             builder.Register<CurrencyManager>(Lifetime.Singleton);

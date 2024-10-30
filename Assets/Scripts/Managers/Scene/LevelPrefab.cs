@@ -13,24 +13,9 @@ namespace GameTemplate.Managers.Scene
 {
     public class LevelPrefab : MonoBehaviour, IDisposable
     {
-        public float LevelTime = 60;
-
         private List<QueueObject> _queueObjects;
 
         public static event Action<bool, bool> OnGameFinished;
-
-        public static LevelPrefab Instance { get; private set; }
-
-        private void Awake()
-        {
-            if (Instance != null)
-            {
-                throw new System.Exception("Multiple LevelPrefab!");
-            }
-
-            //DontDestroyOnLoad(gameObject);
-            Instance = this;
-        }
 
         public async UniTaskVoid CheckLevelOver()
         {

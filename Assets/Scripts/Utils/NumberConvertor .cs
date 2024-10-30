@@ -6,6 +6,8 @@ using UnityEngine;
 
     public static class NumberHelper
     {
+        #region Variables
+
         public static Dictionary<int,string> numExponentialTable;
 
         static string periodString = ".";
@@ -14,6 +16,8 @@ using UnityEngine;
         static string zeroString = "0";
         static StringBuilder builder = new StringBuilder( );
         static string[ ] optimizedNumberToStringArray;
+
+        #endregion
 
         /// <summary>
         /// Converts a float to string using the scientific connotation (K,M,B,T,aa,etc)

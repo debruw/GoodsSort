@@ -13,7 +13,11 @@ namespace GameTemplate.Gameplay.GameState
     /// </summary>
     public class MainMenuState : GameStateBehaviour
     {
+        #region Variables
+
         public override GameState ActiveState => GameState.MainMenu;
+
+        #endregion
 
         protected override void Configure(IContainerBuilder builder)
         {

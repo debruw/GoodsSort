@@ -6,12 +6,16 @@ namespace GameTemplate.Managers.Pool
 {
     public class PoolElement : MonoBehaviour
     {
+        #region Variables
+
         private PoolID poolId;
 
         private bool goBackOnDisable;
         private bool isApplicationQuitting;
 
         public PoolID PoolId { get => poolId; set => poolId = value; }
+
+        #endregion
 
         public void Initialize(bool gBackOnDisable, PoolID poolId)
         {

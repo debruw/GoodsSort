@@ -7,6 +7,8 @@ namespace GameTemplate.UI.Currencies
     [System.Serializable]
     public class Currency
     {
+        #region Variables
+
         public Sprite currencyImage;
         public string currencySign;
         public int currencyAmount;
@@ -19,6 +21,8 @@ namespace GameTemplate.UI.Currencies
         {
             get => currencyId;
         }
+
+        #endregion
         
         public void Initialize(int cId)
         {

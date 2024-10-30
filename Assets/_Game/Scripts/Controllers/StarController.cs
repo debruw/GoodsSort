@@ -3,10 +3,12 @@ using AssetKits.ParticleImage;
 using GameTemplate._Game.Scripts.Match;
 using TMPro;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace _Game.Scripts.Timer
 {
-    public class StarController : MonoBehaviour
+    public class StarController : MonoBehaviour, IStartable
     {
         #region Variables
 
@@ -26,9 +28,19 @@ namespace _Game.Scripts.Timer
 
         #endregion
 
+        #region Injects
+
+        [Inject] ComboController _comboController;
+
+        #endregion
+
         private void Awake()
         {
             MatchGroup.OnMatched += SpawnParticle;
+        }
+
+        public void Start()
+        {
         }
 
         private void OnDestroy()
@@ -41,7 +53,7 @@ namespace _Game.Scripts.Timer
             //convert to screen position
             point = Camera.main.WorldToScreenPoint(point);
 
-            int spawnCount = ComboController.Instance.ComboCount >= 3 ? 3 : ComboController.Instance.ComboCount + 1;
+            int spawnCount = _comboController.ComboCount >= 3 ? 3 : _comboController.ComboCount + 1;
 
             //Create particle
             ParticleImage particle = Instantiate(starPrefab, transform)

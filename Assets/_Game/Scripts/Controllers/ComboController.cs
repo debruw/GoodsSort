@@ -4,10 +4,11 @@ using GameTemplate.Managers.Scene;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer.Unity;
 
 namespace _Game.Scripts.Timer
 {
-    public class ComboController : MonoBehaviour
+    public class ComboController : MonoBehaviour, IStartable
     {
         #region Variables
 
@@ -27,22 +28,17 @@ namespace _Game.Scripts.Timer
 
         #endregion
 
-        public static ComboController Instance { get; private set; }
-
         private void Awake()
         {
-            if (Instance != null)
-            {
-                throw new System.Exception("Multiple Sound Players!");
-            }
-
-            //DontDestroyOnLoad(gameObject);
-            Instance = this;
             ComboCountText.text = string.Empty;
             ComboSlider.value = 0;
 
             MatchGroup.OnMatched += Combo;
             LevelPrefab.OnGameFinished += StopCombo;
+        }
+
+        public void Start()
+        {
         }
 
         private void OnDestroy()
@@ -55,6 +51,8 @@ namespace _Game.Scripts.Timer
 
         public void Combo(Vector3 position)
         {
+            if (!gameObject.activeInHierarchy)
+                return;
             _comboCount++;
             ComboCountText.text = "x" + _comboCount.ToString();
             _timer = ComboTime - _comboCount;

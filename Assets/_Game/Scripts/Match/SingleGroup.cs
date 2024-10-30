@@ -7,9 +7,13 @@ namespace GameTemplate._Game.Scripts.Match
 {
     public class SingleGroup : MonoBehaviour
     {
+        #region Variables
+
         public GameObject QueueObjectPrefab;
         public List<QueueObject> QueueObjects = new List<QueueObject>();
+        
 
+        #endregion
         private void Start()
         {
             QueueObjects = GetComponentsInChildren<QueueObject>().ToList();
